@@ -117,13 +117,20 @@ export async function GET(request: NextRequest) {
         }
 
         // Return user data with conditional contact info  
-        const { contactVisibility, profileVisibility, ...userWithoutPrivacyFields } = user;
-        
-        return {
-          ...userWithoutPrivacyFields,
+        const userResponse = {
+          id: user.id,
+          name: user.name,
+          bloodGroup: user.bloodGroup,
+          area: user.area,
+          city: user.city,
+          state: user.state,
+          availableFrom: user.availableFrom,
+          createdAt: user.createdAt,
           phoneNumber: showContact ? user.phoneNumber : undefined,
           contactVisible: showContact,
         };
+        
+        return userResponse;
       });
 
     return NextResponse.json({

@@ -6,7 +6,10 @@ import * as path from 'path';
 // Initialize Firebase Admin SDK
 if (!getApps().length) {
   try {
-    let firebaseConfig: any = {
+    const firebaseConfig: {
+      projectId?: string;
+      credential?: ReturnType<typeof cert>;
+    } = {
       projectId: process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
     };
 
@@ -18,7 +21,7 @@ if (!getApps().length) {
       
       firebaseConfig.credential = cert(serviceAccount);
       console.log('Firebase Admin initialized with service account JSON file');
-    } catch (jsonError) {
+    } catch {
       console.log('Service account JSON file not found, trying environment variables...');
       // Fallback to environment variables
       if (process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY) {

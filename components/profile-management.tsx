@@ -6,11 +6,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/lib/auth-context';
 import {
-    CONTACT_VISIBILITY_DISPLAY,
-    ContactVisibility,
-    PROFILE_VISIBILITY_DISPLAY,
-    ProfileVisibility,
-    UserUpdateSchema
+  CONTACT_VISIBILITY_DISPLAY,
+  ContactVisibility,
+  PROFILE_VISIBILITY_DISPLAY,
+  ProfileVisibility,
+  UserUpdateSchema
 } from '@/lib/types';
 import { formatBloodGroup } from '@/lib/utils-donation';
 import { Activity, ArrowLeft, MapPin, Phone, Save, Shield, User } from 'lucide-react';
@@ -116,8 +116,8 @@ export function ProfileManagement() {
         city: user.city || '',
         state: user.state || '',
         isActive: user.isActive ?? true,
-        contactVisibility: (user as any).contactVisibility || 'RESTRICTED',
-        profileVisibility: (user as any).profileVisibility || 'PUBLIC',
+        contactVisibility: (user.contactVisibility as ContactVisibility) || 'RESTRICTED',
+        profileVisibility: (user.profileVisibility as ProfileVisibility) || 'PUBLIC',
       });
     }
     setIsEditing(false);
@@ -358,7 +358,7 @@ export function ProfileManagement() {
                         </select>
                       ) : (
                         <div className="p-2 bg-gray-50 rounded border">
-                          {CONTACT_VISIBILITY_DISPLAY[((user as any).contactVisibility as ContactVisibility) || 'RESTRICTED']}
+                          {CONTACT_VISIBILITY_DISPLAY[(user.contactVisibility as ContactVisibility) || 'RESTRICTED']}
                         </div>
                       )}
                       <p className="text-xs text-gray-500">
@@ -384,7 +384,7 @@ export function ProfileManagement() {
                         </select>
                       ) : (
                         <div className="p-2 bg-gray-50 rounded border">
-                          {PROFILE_VISIBILITY_DISPLAY[((user as any).profileVisibility as ProfileVisibility) || 'PUBLIC']}
+                          {PROFILE_VISIBILITY_DISPLAY[(user.profileVisibility as ProfileVisibility) || 'PUBLIC']}
                         </div>
                       )}
                       <p className="text-xs text-gray-500">

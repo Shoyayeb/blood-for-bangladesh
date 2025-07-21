@@ -75,14 +75,14 @@ export function UserRegistrationForm() {
       } else {
         setError(data.error || 'Registration failed');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Registration error:', error);
-      if (error.issues) {
+      if (error && typeof error === 'object' && 'issues' in error) {
         // Zod validation errors
-        const errorMessages = error.issues.map((issue: any) => issue.message).join(', ');
+        const errorMessages = (error.issues as Array<{ message: string }>).map((issue) => issue.message).join(', ');
         setError(errorMessages);
       } else {
-        setError(error.message || 'Registration failed');
+        setError((error as Error).message || 'Registration failed');
       }
     } finally {
       setLoading(false);

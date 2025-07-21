@@ -148,7 +148,7 @@ export function UserDashboard() {
                       ✅ Ready to Donate!
                     </div>
                     <p className="text-sm text-gray-600 mb-4">
-                      You're eligible to donate blood.
+                      You&apos;re eligible to donate blood.
                     </p>
                     <div className="space-y-2">
                       <textarea
