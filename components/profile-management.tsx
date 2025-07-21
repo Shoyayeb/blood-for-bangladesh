@@ -6,11 +6,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/lib/auth-context';
 import {
-  CONTACT_VISIBILITY_DISPLAY,
-  ContactVisibility,
-  PROFILE_VISIBILITY_DISPLAY,
-  ProfileVisibility,
-  UserUpdateSchema
+    CONTACT_VISIBILITY_DISPLAY,
+    ContactVisibility,
+    PROFILE_VISIBILITY_DISPLAY,
+    ProfileVisibility,
+    UserUpdateSchema
 } from '@/lib/types';
 import { formatBloodGroup } from '@/lib/utils-donation';
 import { Activity, ArrowLeft, MapPin, Phone, Save, Shield, User } from 'lucide-react';

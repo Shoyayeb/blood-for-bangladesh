@@ -5,7 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { HospitalSelector } from '@/components/hospital-selector';
 import { useAuth } from '@/lib/auth-context';
+import { Hospital } from '@/lib/hospitals';
 import { BLOOD_GROUP_DISPLAY, BloodGroup } from '@/lib/types';
 import { MapPin, Phone, Users } from 'lucide-react';
 import { useState } from 'react';
@@ -13,6 +15,7 @@ import { useState } from 'react';
 interface BloodRequestForm {
   bloodGroup: BloodGroup | '';
   urgency: 'low' | 'medium' | 'high' | 'critical';
+  hospital?: Hospital;
   location: string;
   contactPhone: string;
   message: string;
@@ -32,10 +35,12 @@ export function BloodRequest() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const [selectedHospital, setSelectedHospital] = useState<Hospital | undefined>();
   
   const [formData, setFormData] = useState<BloodRequestForm>({
     bloodGroup: '',
     urgency: 'medium',
+    hospital: undefined,
     location: user?.area + ', ' + user?.city || '',
     contactPhone: user?.phoneNumber || '',
     message: '',
@@ -45,6 +50,17 @@ export function BloodRequest() {
 
   const updateField = (field: keyof BloodRequestForm, value: string | number | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    setError('');
+    setSuccess('');
+  };
+
+  const handleHospitalSelect = (hospital: Hospital | undefined) => {
+    setSelectedHospital(hospital);
+    setFormData(prev => ({ 
+      ...prev, 
+      hospital,
+      location: hospital ? `${hospital.name}, ${hospital.address}` : prev.location
+    }));
     setError('');
     setSuccess('');
   };
@@ -90,6 +106,13 @@ export function BloodRequest() {
           bloodGroup: formData.bloodGroup,
           urgency: formData.urgency,
           location: formData.location,
+          hospital: formData.hospital ? {
+            id: formData.hospital.id,
+            name: formData.hospital.name,
+            address: formData.hospital.address,
+            zone: formData.hospital.zone,
+            map_url: formData.hospital.map_url
+          } : null,
           message: formData.message,
           notifyRadius: formData.notifyRadius,
           notifyAll: formData.notifyAll,
@@ -176,20 +199,31 @@ export function BloodRequest() {
               </div>
             </div>
 
-            {/* Location */}
+            {/* Hospital Selection */}
+            <HospitalSelector
+              selectedHospital={selectedHospital}
+              onHospitalSelect={handleHospitalSelect}
+            />
+
+            {/* Location - Auto-filled when hospital is selected */}
             <div className="space-y-2">
               <Label htmlFor="location" className="flex items-center space-x-1">
                 <MapPin className="w-4 h-4" />
-                <span>Location (Hospital/Address) *</span>
+                <span>Location Details (Auto-filled from hospital or enter manually) *</span>
               </Label>
               <Input
                 id="location"
                 type="text"
-                placeholder="e.g., Dhaka Medical College Hospital, Emergency Ward"
+                placeholder="e.g., Emergency Ward, ICU, specific department..."
                 value={formData.location}
                 onChange={(e) => updateField('location', e.target.value)}
                 required
               />
+              {selectedHospital && (
+                <p className="text-xs text-blue-600">
+                  Hospital selected: {selectedHospital.name} ({selectedHospital.zone})
+                </p>
+              )}
             </div>
 
             {/* Contact Phone */}

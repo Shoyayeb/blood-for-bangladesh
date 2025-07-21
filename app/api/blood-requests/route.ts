@@ -5,12 +5,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 // Blood request schema
+const HospitalSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  address: z.string(),
+  zone: z.string(),
+  map_url: z.string(),
+}).optional().nullable();
+
 const BloodRequestSchema = z.object({
   requesterName: z.string().min(2, 'Requester name is required'),
   requesterPhone: z.string().min(10, 'Valid phone number is required'),
   bloodGroup: z.enum(['A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE']),
   urgency: z.enum(['low', 'medium', 'high', 'critical']),
   location: z.string().min(5, 'Location is required'),
+  hospital: HospitalSchema,
   message: z.string().optional(),
   notifyRadius: z.number().min(1).max(100),
   notifyAll: z.boolean(),
