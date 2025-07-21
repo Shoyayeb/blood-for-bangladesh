@@ -1,0 +1,113 @@
+name: Documentation
+description: Report an issue with documentation or suggest documentation improvements
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve our documentation! 📚
+        
+        Good documentation helps new contributors get started and existing contributors work more effectively.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation needs attention?
+      options:
+        - README.md
+        - CONTRIBUTING.md
+        - Setup/Installation Guide
+        - API Documentation
+        - Code Comments
+        - Architecture Documentation
+        - Deployment Guide
+        - Troubleshooting
+        - User Guide
+        - Other
+      default: 0
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      description: What kind of documentation issue is this?
+      options:
+        - Missing information
+        - Incorrect information
+        - Outdated information
+        - Unclear/confusing
+        - Needs better examples
+        - Typo/grammar
+        - Formatting issue
+        - New documentation needed
+      default: 0
+
+  - type: input
+    id: location
+    attributes:
+      label: Document Location
+      description: Which file or section needs attention?
+      placeholder: ex. README.md - Installation section, /docs/api.md line 45
+
+  - type: textarea
+    id: current-content
+    attributes:
+      label: Current Content (if applicable)
+      description: Copy the current text that needs to be changed
+      render: markdown
+
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: Issue Description
+      description: Describe what's wrong or missing with the current documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-improvement
+    attributes:
+      label: Suggested Improvement
+      description: How should the documentation be improved?
+      placeholder: Provide specific suggestions for improvement
+
+  - type: textarea
+    id: proposed-content
+    attributes:
+      label: Proposed Content (if applicable)
+      description: If you have specific text to suggest, include it here
+      render: markdown
+
+  - type: dropdown
+    id: target-audience
+    attributes:
+      label: Target Audience
+      description: Who is the primary audience for this documentation?
+      options:
+        - New contributors
+        - Experienced developers
+        - End users
+        - System administrators
+        - All audiences
+      default: 0
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you interested in helping with this documentation?
+      options:
+        - label: I'm willing to write/update this documentation
+        - label: I can help with review and feedback
+        - label: I can provide examples or screenshots
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

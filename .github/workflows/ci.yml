@@ -1,0 +1,305 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '18'
+  PNPM_VERSION: '8'
+
+jobs:
+  lint-and-type-check:
+    name: Lint and Type Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🏗️ Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔍 Run ESLint
+        run: pnpm lint
+
+      - name: 🔍 Type check
+        run: pnpm type-check
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🏗️ Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🧪 Run tests
+        run: pnpm test:ci
+        env:
+          CI: true
+
+      - name: 📊 Upload coverage reports
+        uses: codecov/codecov-action@v3
+        if: always()
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🏗️ Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build application
+        run: pnpm build
+        env:
+          NODE_ENV: production
+
+      - name: 📦 Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-files
+          path: .next/
+          retention-days: 1
+
+  security-check:
+    name: Security Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🏗️ Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔒 Run security audit
+        run: pnpm audit --audit-level moderate
+
+      - name: 🔒 Check for vulnerabilities
+        run: pnpm dlx audit-ci --moderate
+
+  accessibility-check:
+    name: Accessibility Check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🏗️ Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build application
+        run: pnpm build
+
+      - name: ♿ Run accessibility tests
+        run: pnpm test:a11y
+        continue-on-error: true
+
+  database-check:
+    name: Database Schema Check
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_blood_donation
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🏗️ Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🗄️ Check Prisma schema
+        run: pnpm prisma validate
+
+      - name: 🗄️ Generate Prisma client
+        run: pnpm prisma generate
+
+      - name: 🗄️ Test database migrations
+        run: pnpm prisma db push
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_blood_donation
+
+  lighthouse:
+    name: Lighthouse Performance Check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🏗️ Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build application
+        run: pnpm build
+
+      - name: 🚀 Start application
+        run: pnpm start &
+        env:
+          NODE_ENV: production
+
+      - name: ⚡ Run Lighthouse CI
+        run: pnpm dlx @lhci/cli@0.12.x autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+  deploy-preview:
+    name: Deploy Preview
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: [lint-and-type-check, test, build]
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-files
+          path: .next/
+
+      - name: 🚀 Deploy to Vercel Preview
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [lint-and-type-check, test, build, security-check, database-check]
+    environment: production
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-files
+          path: .next/
+
+      - name: 🚀 Deploy to Vercel Production
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          vercel-args: '--prod'
+
+      - name: 📢 Notify deployment success
+        if: success()
+        run: echo "🎉 Successfully deployed to production!"
+
+      - name: 📢 Notify deployment failure
+        if: failure()
+        run: echo "❌ Production deployment failed!"

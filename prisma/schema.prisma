@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id @default(cuid())
+  phoneNumber     String   @unique
+  name            String
+  bloodGroup      BloodGroup
+  area            String
+  city            String
+  state           String
+  isActive        Boolean  @default(true)
+  lastDonation    DateTime?
+  availableFrom   DateTime? // Auto-calculated based on last donation
+  
+  // Privacy Settings
+  contactVisibility ContactVisibility @default(RESTRICTED) // Phone number visibility
+  profileVisibility ProfileVisibility @default(PUBLIC)     // Profile visibility
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  donations       Donation[]
+  notifications   Notification[]
+  
+  @@map("users")
+}
+
+model Donation {
+  id          String   @id @default(cuid())
+  userId      String
+  donatedAt   DateTime @default(now())
+  location    String?
+  notes       String?
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("donations")
+}
+
+model BloodRequest {
+  id              String   @id @default(cuid())
+  requesterName   String
+  requesterPhone  String
+  bloodGroup      BloodGroup
+  urgency         RequestUrgency
+  location        String
+  message         String?
+  notifyRadius    Int      @default(10)
+  notifyAll       Boolean  @default(false)
+  requesterCity   String
+  requesterState  String
+  status          RequestStatus @default(ACTIVE)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  notifications   Notification[]
+  
+  @@map("blood_requests")
+}
+
+model Notification {
+  id              String   @id @default(cuid())
+  bloodRequestId  String
+  donorId         String
+  sentAt          DateTime @default(now())
+  status          NotificationStatus @default(SENT)
+  readAt          DateTime?
+  
+  bloodRequest    BloodRequest @relation(fields: [bloodRequestId], references: [id], onDelete: Cascade)
+  donor           User         @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  
+  @@map("notifications")
+}
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
+
+enum ContactVisibility {
+  PUBLIC     // Contact details visible to everyone
+  RESTRICTED // Contact details visible only to authenticated users
+  PRIVATE    // Contact details visible only to self
+}
+
+enum ProfileVisibility {
+  PUBLIC  // Profile visible to everyone  
+  PRIVATE // Profile visible only to authenticated users
+}
+
+enum RequestUrgency {
+  LOW      @map("low")
+  MEDIUM   @map("medium") 
+  HIGH     @map("high")
+  CRITICAL @map("critical")
+}
+
+enum RequestStatus {
+  ACTIVE    // Request is active and seeking donors
+  FULFILLED // Request has been fulfilled
+  CANCELLED // Request has been cancelled
+  EXPIRED   // Request has expired
+}
+
+enum NotificationStatus {
+  SENT      // Notification has been sent
+  DELIVERED // Notification has been delivered
+  READ      // Notification has been read by donor
+  RESPONDED // Donor has responded to the request
+}

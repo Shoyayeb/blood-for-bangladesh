@@ -5,6 +5,26 @@ import Link from 'next/link';
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-50">
+      {/* Navigation */}
+      <nav className="bg-white shadow-sm border-b">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <span className="text-2xl">🩸</span>
+              <h1 className="text-xl font-bold text-gray-900">Blood Donor App</h1>
+            </div>
+            <div className="space-x-2">
+              <Link href="/search">
+                <Button variant="outline">Find Donors</Button>
+              </Link>
+              <Link href="/auth/login">
+                <Button>Login</Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-16">

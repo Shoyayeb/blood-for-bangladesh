@@ -1,0 +1,9 @@
+onlyBuiltDependencies:
+  - '@firebase/util'
+  - '@prisma/client'
+  - '@prisma/engines'
+  - '@tailwindcss/oxide'
+  - prisma
+  - protobufjs
+  - sharp
+  - unrs-resolver
