@@ -21,8 +21,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid authentication token' }, { status: 401 });
     }
 
-    const phoneNumber = verificationResult.phoneNumber;
-
     // Validate input
     const validatedData = UserRegistrationSchema.parse(body);
 

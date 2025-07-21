@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     const compatibleBloodGroups = BLOOD_COMPATIBILITY[validatedData.bloodGroup];
 
     // Build query filters for finding eligible donors
-    const donorFilters: any = {
+    const baseFilters = {
       isActive: true,
       bloodGroup: {
         in: compatibleBloodGroups,
@@ -56,18 +56,18 @@ export async function POST(request: NextRequest) {
       ],
     };
 
-    // Apply location filters if not notifying all
-    if (!validatedData.notifyAll) {
-      // Filter by location proximity
-      donorFilters.AND = [
-        {
-          OR: [
-            { city: { contains: validatedData.requesterCity, mode: 'insensitive' } },
-            { state: { contains: validatedData.requesterState, mode: 'insensitive' } },
-          ],
-        },
-      ];
-    }
+    // Create additional filters for location if not notifying all
+    const locationFilter = !validatedData.notifyAll ? {
+      OR: [
+        { city: { contains: validatedData.requesterCity, mode: 'insensitive' as const } },
+        { state: { contains: validatedData.requesterState, mode: 'insensitive' as const } },
+      ],
+    } : undefined;
+
+    // Combine filters
+    const donorFilters = locationFilter 
+      ? { AND: [baseFilters, locationFilter] }
+      : baseFilters;
 
     // Find eligible donors
     const eligibleDonors = await prisma.user.findMany({
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
         requesterName: validatedData.requesterName,
         requesterPhone: validatedData.requesterPhone,
         bloodGroup: validatedData.bloodGroup,
-        urgency: validatedData.urgency,
+        urgency: validatedData.urgency.toUpperCase() as 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL',
         location: validatedData.location,
         message: validatedData.message,
         notifyRadius: validatedData.notifyRadius,
@@ -127,12 +127,13 @@ export async function POST(request: NextRequest) {
       message: 'Blood request sent successfully',
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Blood request error:', error);
     
-    if (error.issues) {
+    if (error && typeof error === 'object' && 'issues' in error) {
       // Zod validation errors
-      const errorMessages = error.issues.map((issue: any) => issue.message).join(', ');
+      const zodError = error as { issues: Array<{ message: string }> };
+      const errorMessages = zodError.issues.map((issue) => issue.message).join(', ');
       return NextResponse.json({ error: errorMessages }, { status: 400 });
     }
     

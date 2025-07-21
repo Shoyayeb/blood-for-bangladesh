@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     const validatedQuery = DonorSearchSchema.parse(query);
 
     // Build where clause
-    const where: any = {
+    const where: Record<string, unknown> = {
       isActive: true,
     };
 
@@ -103,8 +103,8 @@ export async function GET(request: NextRequest) {
 
     // Filter out users who are still in cooldown period and apply contact visibility
     const availableUsers = users
-      .filter((user: any) => isUserAvailable(user.availableFrom))
-      .map((user: any) => {
+      .filter((user) => isUserAvailable(user.availableFrom))
+      .map((user) => {
         // Determine if contact info should be shown based on privacy settings
         let showContact = false;
         
@@ -116,7 +116,7 @@ export async function GET(request: NextRequest) {
           showContact = false; // Only the user themselves can see private contact info
         }
 
-        // Return user data with conditional contact info
+        // Return user data with conditional contact info  
         const { contactVisibility, profileVisibility, ...userWithoutPrivacyFields } = user;
         
         return {

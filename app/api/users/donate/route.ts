@@ -10,8 +10,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const token = authHeader.split('Bearer ')[1];
-    
     // TODO: Verify Firebase token and get user ID
     // For now, we'll get user ID from request body
     const body = await request.json();

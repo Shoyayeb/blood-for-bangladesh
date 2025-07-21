@@ -105,7 +105,7 @@ export function DonationHistory() {
                   <Droplets className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-gray-900 mb-2">No donations yet</h3>
                   <p className="text-gray-600 mb-6">
-                    You haven't recorded any blood donations yet. When you donate blood, 
+                    You haven&apos;t recorded any blood donations yet. When you donate blood, 
                     mark it in your dashboard to track your contributions.
                   </p>
                   <Link href="/dashboard">

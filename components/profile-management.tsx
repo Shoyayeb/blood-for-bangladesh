@@ -43,8 +43,8 @@ export function ProfileManagement() {
         city: user.city || '',
         state: user.state || '',
         isActive: user.isActive ?? true,
-        contactVisibility: (user as any).contactVisibility || 'RESTRICTED',
-        profileVisibility: (user as any).profileVisibility || 'PUBLIC',
+        contactVisibility: ((user as { contactVisibility?: string }).contactVisibility as 'RESTRICTED' | 'PUBLIC' | 'PRIVATE') || 'RESTRICTED',
+        profileVisibility: ((user as { profileVisibility?: string }).profileVisibility as 'PUBLIC' | 'PRIVATE') || 'PUBLIC',
       });
     }
   }, [user]);
@@ -92,14 +92,16 @@ export function ProfileManagement() {
       } else {
         setError(data.error || 'Failed to update profile');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Profile update error:', error);
-      if (error.issues) {
+      if (error && typeof error === 'object' && 'issues' in error) {
         // Zod validation errors
-        const errorMessages = error.issues.map((issue: any) => issue.message).join(', ');
+        const zodError = error as { issues: Array<{ message: string }> };
+        const errorMessages = zodError.issues.map((issue) => issue.message).join(', ');
         setError(errorMessages);
       } else {
-        setError(error.message || 'Failed to update profile');
+        const errorMessage = error instanceof Error ? error.message : 'Failed to update profile';
+        setError(errorMessage);
       }
     } finally {
       setLoading(false);

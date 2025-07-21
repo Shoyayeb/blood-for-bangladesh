@@ -34,12 +34,13 @@ export async function GET(request: NextRequest) {
       }, { status: 401 });
     }
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Firebase test error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({
       status: 'error',
       message: 'Firebase Admin SDK configuration error',
-      error: error.message,
+      error: errorMessage,
       timestamp: new Date().toISOString()
     }, { status: 500 });
   }

@@ -43,7 +43,7 @@ export function BloodRequest() {
     notifyAll: false,
   });
 
-  const updateField = (field: keyof BloodRequestForm, value: any) => {
+  const updateField = (field: keyof BloodRequestForm, value: string | number | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     setError('');
     setSuccess('');
@@ -111,9 +111,10 @@ export function BloodRequest() {
       } else {
         setError(data.error || 'Failed to send blood request');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Blood request error:', error);
-      setError(error.message || 'Failed to send blood request');
+      const errorMessage = error instanceof Error ? error.message : 'Failed to send blood request';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

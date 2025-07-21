@@ -71,7 +71,7 @@ export default function HomePage() {
             <CardContent>
               <CardDescription>
                 Automatic 3-month cooldown tracking. Donors are hidden 
-                from search until they're eligible to donate again.
+                from search until they&apos;re eligible to donate again.
               </CardDescription>
             </CardContent>
           </Card>

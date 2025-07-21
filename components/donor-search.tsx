@@ -162,7 +162,7 @@ export function DonorSearch() {
               <div>
                 <h4 className="font-medium text-blue-800 mb-1">Enhanced Privacy Features</h4>
                 <p className="text-sm text-blue-700">
-                  Login to your account to access contact details of donors who have set their privacy to "Restricted". 
+                  Login to your account to access contact details of donors who have set their privacy to &quot;Restricted&quot;. 
                   This helps protect donor privacy while ensuring serious blood requests have access to contact information.
                 </p>
               </div>

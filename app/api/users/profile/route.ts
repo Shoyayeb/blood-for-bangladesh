@@ -151,7 +151,7 @@ export async function PUT(request: NextRequest) {
 
     // If token verification succeeded, get user by phone number
     const phoneNumber = verificationResult.phoneNumber;
-    const { userId, ...updateData } = body;
+    const { ...updateData } = body;
 
     // Find user by phone number
     const user = await prisma.user.findUnique({

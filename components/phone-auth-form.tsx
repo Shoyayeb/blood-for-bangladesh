@@ -19,8 +19,8 @@ export function PhoneAuthForm() {
   const router = useRouter();
 
   const setupRecaptcha = () => {
-    if (!(window as any).recaptchaVerifier) {
-      (window as any).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+    if (!(window as unknown as { recaptchaVerifier?: RecaptchaVerifier }).recaptchaVerifier) {
+      (window as unknown as { recaptchaVerifier: RecaptchaVerifier }).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
         size: 'invisible',
         callback: () => {
           console.log('reCAPTCHA solved');
@@ -42,7 +42,7 @@ export function PhoneAuthForm() {
 
     try {
       setupRecaptcha();
-      const appVerifier = (window as any).recaptchaVerifier;
+      const appVerifier = (window as unknown as { recaptchaVerifier: RecaptchaVerifier }).recaptchaVerifier;
       
       // Format phone number to include country code if not present
       let formattedPhone = phoneNumber;
@@ -54,27 +54,31 @@ export function PhoneAuthForm() {
       const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
       setConfirmation(confirmation);
       setStep('otp');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error sending OTP:', error);
       
       // Provide more specific error messages
       let errorMessage = 'Failed to send OTP';
-      if (error.code === 'auth/invalid-app-credential') {
-        errorMessage = 'Firebase app credentials are invalid. Please check your Firebase configuration.';
-      } else if (error.code === 'auth/too-many-requests') {
-        errorMessage = 'Too many requests. Please try again later.';
-      } else if (error.code === 'auth/invalid-phone-number') {
-        errorMessage = 'Invalid phone number format.';
-      } else if (error.message) {
-        errorMessage = error.message;
+      if (error && typeof error === 'object' && 'code' in error) {
+        const firebaseError = error as { code: string; message: string };
+        if (firebaseError.code === 'auth/invalid-app-credential') {
+          errorMessage = 'Firebase app credentials are invalid. Please check your Firebase configuration.';
+        } else if (firebaseError.code === 'auth/too-many-requests') {
+          errorMessage = 'Too many requests. Please try again later.';
+        } else if (firebaseError.code === 'auth/invalid-phone-number') {
+          errorMessage = 'Invalid phone number format.';
+        } else if (firebaseError.message) {
+          errorMessage = firebaseError.message;
+        }
       }
       
       setError(errorMessage);
       
       // Reset reCAPTCHA on error
-      if ((window as any).recaptchaVerifier) {
-        (window as any).recaptchaVerifier.clear();
-        (window as any).recaptchaVerifier = null;
+      const windowWithRecaptcha = window as unknown as { recaptchaVerifier?: RecaptchaVerifier };
+      if (windowWithRecaptcha.recaptchaVerifier) {
+        windowWithRecaptcha.recaptchaVerifier.clear();
+        windowWithRecaptcha.recaptchaVerifier = undefined;
       }
     } finally {
       setLoading(false);
@@ -103,7 +107,7 @@ export function PhoneAuthForm() {
         // New user, redirect to registration
         router.push('/auth/register');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error verifying OTP:', error);
       setError('Invalid OTP. Please try again.');
     } finally {
