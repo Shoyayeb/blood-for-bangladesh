@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Blood Donor Availability App",
-  description: "Find and connect with blood donors in your area",
+  title: "Blood for Bangladesh",
+  description: "Connect with blood donors across Bangladesh. Save lives by finding and donating blood in your community.",
 };
 
 export default function RootLayout({

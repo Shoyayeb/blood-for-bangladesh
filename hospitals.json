@@ -1,0 +1,695 @@
+[
+  {
+    "id": "ChIJvepSTq64VTcRwcKpyXMYOxE",
+    "name": "Square Hospital",
+    "address": "18 Bir Uttam Qazi Nuruzzaman Sarak West, Panthapath, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJvepSTq64VTcRwcKpyXMYOxE",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJwafh4brAVTcRp3SVkUmhLIs",
+    "name": "Bangladesh Specialized Hospital",
+    "address": "২১, 21 Mirpur Rd, Dhaka 1207",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJwafh4brAVTcRp3SVkUmhLIs",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJZdjHFKW4VTcR-UY8qw0dRtM",
+    "name": "Samorita Hospital Ltd.",
+    "address": "৮৯, ১ Panthapath, Dhaka 1215",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJZdjHFKW4VTcR-UY8qw0dRtM",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJVXBIYLe4VTcRUM_Vclo7VDc",
+    "name": "Central Hospital Limited",
+    "address": "House # 2 সড়ক নং ৫, Green Rd, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJVXBIYLe4VTcRUM_Vclo7VDc",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJLznwi0G_VTcRcbmHZWYiREc",
+    "name": "Bangladesh Medical College Hospital",
+    "address": "Rd No. 14A, Dhaka 1209",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJLznwi0G_VTcRcbmHZWYiREc",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJSbjZLOu4VTcRJNPSTZI8IXw",
+    "name": "BIRDEM General Hospital",
+    "address": "122 Kazi Nazrul Islam Ave, Dhaka 1000",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJSbjZLOu4VTcRJNPSTZI8IXw",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJz4dBR-a4VTcRIpVlVTd407M",
+    "name": "Dhaka Medical College Hospital",
+    "address": "Secretariat Rd, Dhaka 1000",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJz4dBR-a4VTcRIpVlVTd407M",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJkeQroLe4VTcR-dQGTXz5qUU",
+    "name": "LABAID Specialized Hospital",
+    "address": "House- -1 and, 6, Road No. 4, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJkeQroLe4VTcR-dQGTXz5qUU",
+    "zone": "Lalbagh"
+  },
+  {
+    "id": "ChIJ9U9HFre4VTcRKorLcJ-ctcE",
+    "name": "Gonoshasthaya Nagar Hospital",
+    "address": "House No, 14/E Road No 6, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ9U9HFre4VTcRKorLcJ-ctcE",
+    "zone": "Lalbagh"
+  },
+  {
+    "id": "ChIJFe1B2avHVTcRfAScTk7fUfE",
+    "name": "United Hospital Limited",
+    "address": "Plot 15 Rd No 71, Dhaka 1212",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJFe1B2avHVTcRfAScTk7fUfE",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJaVg3Dx25VTcRIplPXY5pi5w",
+    "name": "Dhaka Hospital",
+    "address": "17 D.C RAY Rd, Dhaka",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJaVg3Dx25VTcRIplPXY5pi5w",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJy055dtK4VTcRXR0ZbHEr8vE",
+    "name": "BGB Hospital",
+    "address": "Pilkhana Rd, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJy055dtK4VTcRXR0ZbHEr8vE",
+    "zone": "Old Dhaka"
+  },
+  {
+    "id": "ChIJSRA-gFC_VTcRQAbrm4TL_U8",
+    "name": "City Hospital & Diagnostic Center",
+    "address": "House No#1/8, Satmasjid Road, Dhaka 1207",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJSRA-gFC_VTcRQAbrm4TL_U8",
+    "zone": "Lalbagh"
+  },
+  {
+    "id": "ChIJh9mUKEy_VTcR7calPFkkoPM",
+    "name": "Eden Multi-Care Hospital",
+    "address": "753 Satmasjid Road, Dhaka 1209",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJh9mUKEy_VTcR7calPFkkoPM",
+    "zone": "Dhanmondi"
+  },
+  {
+    "id": "ChIJt1WtNgzHVTcRbymHW-1DyXQ",
+    "name": "Anwer Khan Modern Medical College Hospital",
+    "address": "house-17 Rd No. 8, Dhaka 1207",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJt1WtNgzHVTcRbymHW-1DyXQ",
+    "zone": "Lalbagh"
+  },
+  {
+    "id": "ChIJS_BJOKW4VTcRchZJG941_4o",
+    "name": "Health and Hope Hospital",
+    "address": "152, 152 Panthapath, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJS_BJOKW4VTcRchZJG941_4o",
+    "zone": "Lalbagh"
+  },
+  {
+    "id": "ChIJHdDTU7W4VTcRiEUwgwziWHc",
+    "name": "Japan Bangladesh Friendship Hospital",
+    "address": "Bus Stand, Plot # 55 Satmasjid Road, Dhaka 1209",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJHdDTU7W4VTcRiEUwgwziWHc",
+    "zone": "Dhanmondi"
+  },
+  {
+    "id": "ChIJh0SN_Qm4VTcRd8xs1wEwm3w",
+    "name": "Farazy Hospital Limited - Banasree",
+    "address": "House No:15-19, Block: E, Main Road, Dhaka 1219",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJh0SN_Qm4VTcRd8xs1wEwm3w",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJTWqomLe4VTcRJSRwKX6DjN8",
+    "name": "LABAID Cardiac Hospital",
+    "address": "House-01 & 03, রোড-০৪, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJTWqomLe4VTcRJSRwKX6DjN8",
+    "zone": "Shahbagh"
+  },
+  {
+    "id": "ChIJ254M-cm4VTcRld65Hh9NiUc",
+    "name": "Popular Medical College Hospital",
+    "address": "House # 25, 25 Road No. 2, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ254M-cm4VTcRld65Hh9NiUc",
+    "zone": "Dhanmondi"
+  },
+  {
+    "id": "ChIJR7e3xNPAVTcRzajDF5oy8HQ",
+    "name": "Al Helal Specialized Hospital, Dhaka",
+    "address": "150, Begum Rokeya Sarani, Mirpur-10, Dhaka",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJR7e3xNPAVTcRzajDF5oy8HQ",
+    "zone": "Mirpur"
+  },
+  {
+    "id": "ChIJm8KB2PvGVTcR-vKZS0S-pwk",
+    "name": "Kurmitola General Hospital",
+    "address": "Tongi Diversion Rd, Dhaka",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJm8KB2PvGVTcR-vKZS0S-pwk",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJ52MGXSXBVTcR04xRRoJIzpI",
+    "name": "Mirpur General Hospital & Diagnostic Centre",
+    "address": "1216, ঢাকা 1216",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ52MGXSXBVTcR04xRRoJIzpI",
+    "zone": "Baridhara"
+  },
+  {
+    "id": "ChIJMRhBttfAVTcRN0Vmc2_Nz7Y",
+    "name": "Dr. Azmal Hospital",
+    "address": "Plot 5 Road No. 4, Dhaka 1216",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJMRhBttfAVTcRN0Vmc2_Nz7Y",
+    "zone": "Mirpur"
+  },
+  {
+    "id": "ChIJ6SFh3dvAVTcRxIzlVRsW1ig",
+    "name": "National Heart Foundation Hospital & Research Institute",
+    "address": "Plot 7/2, Dhaka 1216",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ6SFh3dvAVTcRxIzlVRsW1ig",
+    "zone": "Mirpur"
+  },
+  {
+    "id": "ChIJ834vG9fAVTcRF1bBH8hNq_A",
+    "name": "National Healthcare Network, Ibrahim General Hospital, Mirpur",
+    "address": "Commercial Plot No: 27-28, Main Road 01 mirpur, Dhaka 1216",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ834vG9fAVTcRF1bBH8hNq_A",
+    "zone": "Mirpur"
+  },
+  {
+    "id": "ChIJJ7UNQJTAVTcRpeOA_moxGzE",
+    "name": "BIHS General Hospital",
+    "address": "125, 1 Darus Salam Rd, Dhaka 1216",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJJ7UNQJTAVTcRpeOA_moxGzE",
+    "zone": "Mirpur"
+  },
+  {
+    "id": "ChIJL77fHOvAVTcRYGNj4sfQXjI",
+    "name": "Aalok Hospital Ltd.",
+    "address": "Block-A, Home-1 Road No. 5, Dhaka 1216",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJL77fHOvAVTcRYGNj4sfQXjI",
+    "zone": "Mirpur"
+  },
+  {
+    "id": "ChIJxw19I-vAVTcR7sSd0hPVXZU",
+    "name": "Delta Hospital Ltd.",
+    "address": "2 Tolarbag 1st Ln, Dhaka",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJxw19I-vAVTcR7sSd0hPVXZU",
+    "zone": "Mirpur"
+  },
+  {
+    "id": "ChIJTxUKGs3AVTcRip0LpCzLOzU",
+    "name": "Exim Bank Hospital",
+    "address": "840, Begum Rokeya Avenue Sarani, Dhaka 1216",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJTxUKGs3AVTcRip0LpCzLOzU",
+    "zone": "Mirpur"
+  },
+  {
+    "id": "ChIJceM2ZeHGVTcRao-N-JOU2vE",
+    "name": "Combined Military Hospital (CMH)",
+    "address": "12 Mirpur Rd, Dhaka",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJceM2ZeHGVTcRao-N-JOU2vE",
+    "zone": "Baridhara"
+  },
+  {
+    "id": "ChIJQ5sCerzAVTcRYAwpcQH1H-w",
+    "name": "Ibn Sina Medical College Hospital",
+    "address": "1, 1-B Mirpur Rd, Dhaka 1207",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJQ5sCerzAVTcRYAwpcQH1H-w",
+    "zone": "Mohammadpur"
+  },
+  {
+    "id": "ChIJf075ETDEVTcR4DIvQtE-ZKc",
+    "name": "Kuwait Bangladesh Friendship Govt. Hospital",
+    "address": "Isakha Ave, Dhaka 1231",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJf075ETDEVTcR4DIvQtE-ZKc",
+    "zone": "Baridhara"
+  },
+  {
+    "id": "ChIJMTZqTEXEVTcRduXrzsSGFSI",
+    "name": "Shaheed Ahsan Ullah Master General Hospital",
+    "address": "Station Rd Over Bridge, Tongi",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJMTZqTEXEVTcRduXrzsSGFSI",
+    "zone": "Uttara"
+  },
+  {
+    "id": "ChIJWwmKbs3FVTcRqiVXrfpFrLk",
+    "name": "Dhaka Specialized Hospital",
+    "address": "78 Gausul Azam Ave, Dhaka 1230",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJWwmKbs3FVTcRqiVXrfpFrLk",
+    "zone": "Uttara"
+  },
+  {
+    "id": "ChIJ33CeNjvEVTcR4ZZbeSSVgbM",
+    "name": "RMC Hospital",
+    "address": "House No, 19 Road No. 5, Dhaka 1230",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ33CeNjvEVTcR4ZZbeSSVgbM",
+    "zone": "Uttara"
+  },
+  {
+    "id": "ChIJA4I6VwXEVTcRQfJOahFnhrc",
+    "name": "Radical Hospitals Ltd.",
+    "address": "35 Shah Makhdum Ave, Dhaka 1230",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJA4I6VwXEVTcRQfJOahFnhrc",
+    "zone": "Uttara"
+  },
+  {
+    "id": "ChIJWQQOOGXEVTcRaJVlvdg1LQ4",
+    "name": "Greenland Hospital Ltd.",
+    "address": "House # 112 Rd 13, Dhaka 1230",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJWQQOOGXEVTcRaJVlvdg1LQ4",
+    "zone": "Uttara"
+  },
+  {
+    "id": "ChIJlxvc4DfEVTcRwvCMF9vubPs",
+    "name": "Aichi Hospital Ltd.",
+    "address": "Plot- 35 & 37, Sector-08 Abdullah Pur - Ate Para Rd, Dhaka 1230",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJlxvc4DfEVTcRwvCMF9vubPs",
+    "zone": "Uttara"
+  },
+  {
+    "id": "ChIJiwApawDFVTcRUQ7qV4KqkXI",
+    "name": "Uttara General Hospital",
+    "address": "House 65 Road No. 13, Dhaka 1230",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJiwApawDFVTcRUQ7qV4KqkXI",
+    "zone": "Uttara"
+  },
+  {
+    "id": "ChIJpezDhD7FVTcRQ_MCZHeaEVI",
+    "name": "HI-CARE GENERAL HOSPITAL LTD.",
+    "address": "24, 26 & 30, House 23, Lake Dr Rd, Dhaka 1230",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJpezDhD7FVTcRQ_MCZHeaEVI",
+    "zone": "Uttara"
+  },
+  {
+    "id": "ChIJ10P-gSfEVTcRxwI5eYb46Dw",
+    "name": "Medical College For Women and Hospital",
+    "address": "Plot No 4 Road-8/9, Sector-1, VC52+87V, Dhaka 1230",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ10P-gSfEVTcRxwI5eYb46Dw",
+    "zone": "Uttara"
+  },
+  {
+    "id": "ChIJyWz1LD7EVTcR5IyyxMU34VU",
+    "name": "Uttara Lake View Specialized Hospital (Pvt.) LTD.",
+    "address": "House#34, 10B Rd # 5A, Dhaka 1230",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJyWz1LD7EVTcR5IyyxMU34VU",
+    "zone": "Uttara"
+  },
+  {
+    "id": "ChIJhxzPL6_HVTcR926woXsycDw",
+    "name": "AMZ Hospital Ltd.",
+    "address": "Uttar Badda, Dhaka 1212",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJhxzPL6_HVTcR926woXsycDw",
+    "zone": "Baridhara"
+  },
+  {
+    "id": "ChIJh_PFaZbHVTcRQH5lQ1e0vzE",
+    "name": "Badda General Hospital Pvt. Ltd.",
+    "address": "107/2, Uttar Badda, Progoti Sarani, QCHG+MHV, Dhaka 1212",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJh_PFaZbHVTcRQH5lQ1e0vzE",
+    "zone": "Baridhara"
+  },
+  {
+    "id": "ChIJOZCeqkrGVTcRjQJ-aqisbyI",
+    "name": "Evercare Hospital, Dhaka",
+    "address": "Plot 81, Block-E, Bashundhara Rd, Dhaka 1229",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJOZCeqkrGVTcRjQJ-aqisbyI",
+    "zone": "Baridhara"
+  },
+  {
+    "id": "ChIJUVVV4GPHVTcRpVTSsuCgkz0",
+    "name": "Impulse Hospital",
+    "address": "304/E Shaheed Tazuddin Avenue, Dhaka 1215",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJUVVV4GPHVTcRpVTSsuCgkz0",
+    "zone": "Baridhara"
+  },
+  {
+    "id": "ChIJGXMwxzjHVTcRX4ug0reN8U8",
+    "name": "Hitech Multicare Hospital ltd",
+    "address": "164 E Kafrul Rd, Dhaka 1206",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJGXMwxzjHVTcRX4ug0reN8U8",
+    "zone": "Baridhara"
+  },
+  {
+    "id": "ChIJpVHBJmfHVTcRETHL6BzDYjw",
+    "name": "Bumrungrad International Hospital Dhaka Bangladesh Office // Support Center in Banani",
+    "address": "Infront Of Banani Block-C Park Alamin Park Panorama, Lift-5, Block C, House-105 Rd No 13A, ঢাকা 1213",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJpVHBJmfHVTcRETHL6BzDYjw",
+    "zone": "Mohakhali"
+  },
+  {
+    "id": "ChIJ8XYdnyLHVTcRsjIuKNGs1xo",
+    "name": "York Hospital",
+    "address": "House no.12 &, 13 Rd 22, Block#K, Dhaka 1212",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ8XYdnyLHVTcRsjIuKNGs1xo",
+    "zone": "Baridhara"
+  },
+  {
+    "id": "ChIJ3RSaUl7HVTcR5Oz3t0XGbMg",
+    "name": "National Gastroliver Institute & Hospital",
+    "address": "Dhaka 1212",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ3RSaUl7HVTcR5Oz3t0XGbMg",
+    "zone": "Badda"
+  },
+  {
+    "id": "ChIJvTH-pyLHVTcRrgaH0aUL6Gc",
+    "name": "Siraj-Khaleda Memorial Cantonment Board General Hospital",
+    "address": "1206 Rd No. 04, Dhaka",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJvTH-pyLHVTcRrgaH0aUL6Gc",
+    "zone": "Banani"
+  },
+  {
+    "id": "ChIJ24vlXWjHVTcRYL52d3U1oGo",
+    "name": "Universal Medical College Hospital Ltd.",
+    "address": "74G/75, Pea-cock Square, New Airport Road, Dhaka 1215",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ24vlXWjHVTcRYL52d3U1oGo",
+    "zone": "Mohakhali"
+  },
+  {
+    "id": "ChIJ9a-xZwHHVTcRX6T-MRU8G9w",
+    "name": "DNCC Dedicated Covid-19 Hospital, Mohakhali, Dhaka-1212",
+    "address": "Shaheed Tajuddin Ahmed Ave, Dhaka 1212",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ9a-xZwHHVTcRX6T-MRU8G9w",
+    "zone": "Mohakhali"
+  },
+  {
+    "id": "ChIJG9Muy4i4VTcR1pIsXJrP_iQ",
+    "name": "Rushmono Specialized Hospital",
+    "address": "Mogbazar Plaza, 209 Outer Circular Rd, Dhaka 1217",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJG9Muy4i4VTcR1pIsXJrP_iQ",
+    "zone": "Jatrabari"
+  },
+  {
+    "id": "ChIJ69UV3vS4VTcR7_5vnEAQ3zU",
+    "name": "Islami Bank Central Hospital, Kakrail",
+    "address": "30, Islami Bank Hospital Bhaban, ভিআইপি সড়ক, ঢাকা 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ69UV3vS4VTcR7_5vnEAQ3zU",
+    "zone": "Malibagh"
+  },
+  {
+    "id": "ChIJcVj2iwK5VTcRW73JAFmEuLs",
+    "name": "Dhaka Mohanagar General Hospital",
+    "address": "PC74+J45, Dhaka 1100",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJcVj2iwK5VTcRW73JAFmEuLs",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJB0VOsUK4VTcRE5jEbpodwcU",
+    "name": "Islami Bank Hospital, Motijheel",
+    "address": "24/B Outer Circular Rd, Dhaka 1217",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJB0VOsUK4VTcRE5jEbpodwcU",
+    "zone": "Jatrabari"
+  },
+  {
+    "id": "ChIJU8DyDdK5VTcRDsn5M37QBX4",
+    "name": "Aurora Specialized Hospital Ltd",
+    "address": "19/1 Khulna Trade Square, opposite Karnafuli Garden City, Bir Uttam Samsul Alam Sarak, Kakrail, ঢাকা 1000",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJU8DyDdK5VTcRDsn5M37QBX4",
+    "zone": "Motijheel"
+  },
+  {
+    "id": "ChIJA6GbDme4VTcR3YRM8Alcs7Y",
+    "name": "The Barakah General Hospital Limited",
+    "address": "Opposite, Police line Gate, No 2, 937 Outer Circular Road, Dhaka 1000",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJA6GbDme4VTcR3YRM8Alcs7Y",
+    "zone": "Khilgaon"
+  },
+  {
+    "id": "ChIJufz_9vq4VTcRxCZO9-Ti1GY",
+    "name": "Government Employee Hospital",
+    "address": "Government Staff Hospital, College Rd, Dhaka 1000",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJufz_9vq4VTcRxCZO9-Ti1GY",
+    "zone": "Jatrabari"
+  },
+  {
+    "id": "ChIJKeuAbfG4VTcRb54eWjWIBJ0",
+    "name": "BIRDEM General Hospital 2 (Child and Mother)",
+    "address": "1/A Segun Bagicha Rd, Dhaka 1000",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJKeuAbfG4VTcRb54eWjWIBJ0",
+    "zone": "Motijheel"
+  },
+  {
+    "id": "ChIJHyTYGWW4VTcRLz3CAGMNRVY",
+    "name": "Khidmah Hospital Pvt. Ltd.",
+    "address": "C-287/2-3, Bisswa Road, Dhaka 1219",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJHyTYGWW4VTcRLz3CAGMNRVY",
+    "zone": "Malibagh"
+  },
+  {
+    "id": "ChIJyZlWdIy4VTcRSstxDycj-vs",
+    "name": "Monowara Hospital (Pvt.) Ltd.",
+    "address": "54 Siddheswari Rd, Dhaka 1217",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJyZlWdIy4VTcRSstxDycj-vs",
+    "zone": "Malibagh"
+  },
+  {
+    "id": "ChIJX2FDzr-4VTcRq50CX4Qfqo8",
+    "name": "Module General Hospital",
+    "address": "Paribagh Rd, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJX2FDzr-4VTcRq50CX4Qfqo8",
+    "zone": "Azimpur"
+  },
+  {
+    "id": "ChIJ53hBCgC5VTcRZHToxCfzE_o",
+    "name": "PG Hospital Dhaka",
+    "address": "P9QW+R8M Bus Stop, Shahbagh Rd, Dhaka",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ53hBCgC5VTcRZHToxCfzE_o",
+    "zone": "Shahbagh"
+  },
+  {
+    "id": "ChIJCyzp3Tm5VTcRDT5JPzn2MRY",
+    "name": "New Life Hospital Limited",
+    "address": "25/A Green Rd, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJCyzp3Tm5VTcRDT5JPzn2MRY",
+    "zone": "Shahbagh"
+  },
+  {
+    "id": "ChIJ3fpI93rHVTcRo1T8k1_o1Lc",
+    "name": "Baridhara General Hospital Ltd.",
+    "address": "Kalachandpur Main Road, Dhaka 1212",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ3fpI93rHVTcRo1T8k1_o1Lc",
+    "zone": "Baridhara"
+  },
+  {
+    "id": "ChIJ4fNU57nHVTcRFNtEfP9wW9s",
+    "name": "Farazy Diagonistic & Hospital Ltd Natun Bazar",
+    "address": "QCXH+644, Dhaka 1212",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ4fNU57nHVTcRFNtEfP9wW9s",
+    "zone": "Bashundhara"
+  },
+  {
+    "id": "ChIJ5diXu6TAVTcR9tmtHgcUpmI",
+    "name": "Dhaka Central International Medical College & Hospital (DCIMCH)",
+    "address": "2/1 Ring Rd, Dhaka 1207",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ5diXu6TAVTcR9tmtHgcUpmI",
+    "zone": "Mohammadpur"
+  },
+  {
+    "id": "ChIJ_-Su51G_VTcRQ1K__quMyCE",
+    "name": "IBN Sina Specialized Hospital",
+    "address": "H.No, 68 Rd Number 15, Dhaka 1209",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ_-Su51G_VTcRQ1K__quMyCE",
+    "zone": "Mohammadpur"
+  },
+  {
+    "id": "ChIJCSoKKanAVTcRvJejgH5W6bY",
+    "name": "BDM Hospital",
+    "address": "Block-B, 5/17, 7-2 Humayun Rd, Dhaka 1207",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJCSoKKanAVTcRvJejgH5W6bY",
+    "zone": "Mohammadpur"
+  },
+  {
+    "id": "ChIJBZjUzqPAVTcRcCLQ5Iz5GQA",
+    "name": "SP Hospital",
+    "address": "Ring Rd, Dhaka 1207",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJBZjUzqPAVTcRcCLQ5Iz5GQA",
+    "zone": "Mohammadpur"
+  },
+  {
+    "id": "ChIJ0wVvNFq_VTcRskQcT8VUTTA",
+    "name": "AL-MANAR HOSPITAL LTD.",
+    "address": "Plot No: Umo, Block No: Rossoi, সাতমসজিদ সড়ক, ঢাকা 1207",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ0wVvNFq_VTcRskQcT8VUTTA",
+    "zone": "Mohammadpur"
+  },
+  {
+    "id": "ChIJmx_DF7LAVTcR51zo2Tbvlr0",
+    "name": "National Institute of Neuro Sciences & Hospital",
+    "address": "Agargaon, Dhaka 1207",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJmx_DF7LAVTcR51zo2Tbvlr0",
+    "zone": "Mohammadpur"
+  },
+  {
+    "id": "ChIJfeaior24VTcRT1pYl0TL85c",
+    "name": "Padma General Hospital",
+    "address": "290 Sonargaon Road, Dhaka 1205",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJfeaior24VTcRT1pYl0TL85c",
+    "zone": "Tejgaon"
+  },
+  {
+    "id": "ChIJ7VStrpG4VTcR0l3dh-zQ7Xc",
+    "name": "Neuro Care and Research Foundation",
+    "address": "PCX2+3G8, 135 New Eskaton Road, Dhaka 1000",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ7VStrpG4VTcR0l3dh-zQ7Xc",
+    "zone": "Malibagh"
+  },
+  {
+    "id": "ChIJ8_npgx25VTcRvNo8qHzY_Yo",
+    "name": "Khalekunnessa General Hospital",
+    "address": "61 Noor Box Ln, Dhaka 1100",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ8_npgx25VTcRvNo8qHzY_Yo",
+    "zone": "Jatrabari"
+  },
+  {
+    "id": "ChIJ1dSU8hy5VTcRMYaR-sFOMts",
+    "name": "Sir Salimullah Medical College Mitford Hospital",
+    "address": "Mitford Rd, Dhaka",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ1dSU8hy5VTcRMYaR-sFOMts",
+    "zone": "Old Dhaka"
+  },
+  {
+    "id": "ChIJHelNPwe5VTcR2qSWKfaF-R8",
+    "name": "Dhaka National Medical Institute Hospital",
+    "address": "53, 1 Johnson Rd, Dhaka 1100",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJHelNPwe5VTcR2qSWKfaF-R8",
+    "zone": "Jatrabari"
+  },
+  {
+    "id": "ChIJ8ZzPorG5VTcRgnBymYjDyUA",
+    "name": "Asgar Ali Medical College & Hospital",
+    "address": "১১১/১/ A, ডিস্টিলারি রোড, গেন্ডারিয়া, ধুপখোলা মাঠের বিপরীতে, সিটি মিলের পাশে, Dhaka 1204",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ8ZzPorG5VTcRgnBymYjDyUA",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJfXPz3wa5VTcRRBqUbMHBro8",
+    "name": "Sumona Hospital Ltd.",
+    "address": "Dhaka",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJfXPz3wa5VTcRRBqUbMHBro8",
+    "zone": "Old Dhaka"
+  },
+  {
+    "id": "ChIJp0yyOgO5VTcRfI4ZVMH_pFc",
+    "name": "Meghna General Hospital",
+    "address": "43 Islampur Rd, Dhaka 1100",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJp0yyOgO5VTcRfI4ZVMH_pFc",
+    "zone": "Old Dhaka"
+  },
+  {
+    "id": "ChIJvbrYInm4VTcRKPuujOHN0fk",
+    "name": "Better Life Hospital",
+    "address": "1, 1 Sahid Muktijoddha Faruk Iqbal And Taslim Rd, Dhaka 1219",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJvbrYInm4VTcRKPuujOHN0fk",
+    "zone": "Malibagh"
+  },
+  {
+    "id": "ChIJr1cbSWO4VTcRxr8Upynu5H0",
+    "name": "People's Hospital Limited",
+    "address": "5-B Shahid Baki Rd, Dhaka 1219",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJr1cbSWO4VTcRxr8Upynu5H0",
+    "zone": "Khilgaon"
+  },
+  {
+    "id": "ChIJbxmiq5bHVTcRgOoijlpYaTk",
+    "name": "Medilink Hospital",
+    "address": "QCJG+7G8, Dhaka 1212",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJbxmiq5bHVTcRgOoijlpYaTk",
+    "zone": "Badda"
+  },
+  {
+    "id": "ChIJR09w_Qm4VTcRrG9-W86xRVY",
+    "name": "Advance Hospital Ltd. | Best Hospital in Dhaka Banasree",
+    "address": "House #1, Main Road, Block #F, ঢাকা 1219",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJR09w_Qm4VTcRrG9-W86xRVY",
+    "zone": "Badda"
+  },
+  {
+    "id": "ChIJ6Tw5qY-4VTcRRl1chz7sxOE",
+    "name": "Ad-Din Medical College Hospital ~ MaghBazar",
+    "address": "Bara Maghbazar, 2 Outer Circular Road, Dhaka 1217",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ6Tw5qY-4VTcRRl1chz7sxOE",
+    "zone": "Malibagh"
+  },
+  {
+    "id": "ChIJReYd3pG4VTcRw4DQfq-H70A",
+    "name": "Holy Family Red Crescent Medical College Hospital",
+    "address": "1 Eskaton Garden Rd, Dhaka 1000",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJReYd3pG4VTcRw4DQfq-H70A",
+    "zone": "Malibagh"
+  },
+  {
+    "id": "ChIJx_vcbrW5VTcR3uHsdEawrFM",
+    "name": "Al-Karim General Hospital limited",
+    "address": "Haji Borhanuddin tower, 17/A Uttar, ঢাকা 1100",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJx_vcbrW5VTcR3uHsdEawrFM",
+    "zone": "Jatrabari"
+  },
+  {
+    "id": "ChIJGwxOcLW5VTcR-R4BPgnl9fE",
+    "name": "Islamia general Hospital",
+    "address": "২৫ উত্তর যাত্রাবাড়ী, 25 North Jatrabari, Dhaka 1204",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJGwxOcLW5VTcR-R4BPgnl9fE",
+    "zone": "Jatrabari"
+  },
+  {
+    "id": "ChIJH-ZBRse5VTcRwY2ohwRIoFE",
+    "name": "Salauddin Specialized Hospital Ltd.",
+    "address": "44/A, Hatkhola Rd, Dhaka 1203",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJH-ZBRse5VTcRwY2ohwRIoFE",
+    "zone": "Jatrabari"
+  },
+  {
+    "id": "ChIJ_xD02gq3VTcRcYkT21BwSzs",
+    "name": "Medi Hope General Hospital",
+    "address": "PF79+2W3, Dhaka",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ_xD02gq3VTcRcYkT21BwSzs",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJI9m03w63VTcRCzO0n-hXaDQ",
+    "name": "Dhaka Islamia General Hospital",
+    "address": "Prara Dogair, Beside Takoa jame masjid, PF69+RW7, ঢাকা 1362",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJI9m03w63VTcRCzO0n-hXaDQ",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJ_5orUmq3VTcRmWHZvDcv9Wk",
+    "name": "Institute of Child and Mother Health",
+    "address": "MFV8+9GX Near Home, Medical Rd, Dhaka 1362",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ_5orUmq3VTcRmWHZvDcv9Wk",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJ9yDAGbyJ2CYRN5LKB9WLujU",
+    "name": "Specialized Medical Care (SMC) Hospital",
+    "address": "Home Tower, South Matuail, College Rd, ঢাকা 1362",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJ9yDAGbyJ2CYRN5LKB9WLujU",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJV_HaJNi5VTcRryZXV6cCp18",
+    "name": "Deshbangla Hospital & Diagnostic Center Limited.",
+    "address": "450/456, নয়াপাড়া, Dhaka 1236",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJV_HaJNi5VTcRryZXV6cCp18",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJm78D0OO2VTcRx1puGmU-SJ4",
+    "name": "East View Hospital & Lab",
+    "address": "112/C, MFXR+26C East View Hospital & Lab, Narayanganj 1430",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJm78D0OO2VTcRx1puGmU-SJ4",
+    "zone": "Demra"
+  },
+  {
+    "id": "ChIJSyC3JJ-3VTcRnp65pouVaeo",
+    "name": "AL-NOOR General Hospital & Diagnostic Center",
+    "address": "75, The siful center, Konapara-Dogair Main Rd, Dhaka 1362",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJSyC3JJ-3VTcRnp65pouVaeo",
+    "zone": "Demra"
+  }
+]

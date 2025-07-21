@@ -1,6 +1,6 @@
-# 🩸 Blood Donor Availability App
+# 🩸 Blood for Bangladesh
 
-A **life-saving platform** that connects blood donors with those in need. Find available blood donors in real-time, respecting privacy and implementing smart cooldown periods to ensure donor health.
+A **life-saving platform** connecting blood donors across Bangladesh. Find available blood donors in real-time from Dhaka to Chittagong, respecting privacy and ensuring donor health through smart cooldown periods.
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![Firebase](https://img.shields.io/badge/Firebase-Auth-orange)

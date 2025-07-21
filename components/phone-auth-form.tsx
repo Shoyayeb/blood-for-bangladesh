@@ -118,7 +118,7 @@ export function PhoneAuthForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>Blood Donor Login</CardTitle>
+        <CardTitle>Blood for Bangladesh - Login</CardTitle>
         <CardDescription>
           {step === 'phone' 
             ? 'Enter your phone number to receive an OTP' 

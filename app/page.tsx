@@ -9,11 +9,11 @@ export default function HomePage() {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            Save Lives, Donate Blood
+            Blood for Bangladesh
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Connect with blood donors in your area. Help others find life-saving blood donations 
-            when they need them most.
+            Connect with blood donors across Bangladesh. Help save lives by finding and donating blood 
+            in communities from Dhaka to Chittagong, Sylhet to Rajshahi.
           </p>
           <div className="space-x-4">
             <Link href="/auth/login">

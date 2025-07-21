@@ -245,7 +245,7 @@ export function ProfileManagement() {
                           type="text"
                           value={formData.area}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('area', e.target.value)}
-                          placeholder="e.g., Dhanmondi"
+                          placeholder="e.g., Dhanmondi, Gulshan, Uttara, Wari"
                         />
                       ) : (
                         <div className="p-2 bg-gray-50 rounded border">
@@ -262,7 +262,7 @@ export function ProfileManagement() {
                           type="text"
                           value={formData.city}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('city', e.target.value)}
-                          placeholder="e.g., Dhaka"
+                          placeholder="e.g., Dhaka, Chittagong, Sylhet, Rajshahi"
                         />
                       ) : (
                         <div className="p-2 bg-gray-50 rounded border">
@@ -279,7 +279,7 @@ export function ProfileManagement() {
                           type="text"
                           value={formData.state}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('state', e.target.value)}
-                          placeholder="e.g., Dhaka Division"
+                          placeholder="e.g., Dhaka Division, Chittagong Division, Sylhet Division"
                         />
                       ) : (
                         <div className="p-2 bg-gray-50 rounded border">

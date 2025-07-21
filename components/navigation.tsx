@@ -28,7 +28,7 @@ export function Navigation() {
           {/* Logo/Brand */}
           <Link href="/" className="flex items-center space-x-2">
             <Heart className="w-8 h-8 text-red-600" />
-            <span className="text-xl font-bold text-gray-900">BloodConnect</span>
+            <span className="text-xl font-bold text-gray-900">Blood for Bangladesh</span>
           </Link>
 
           {/* Navigation Links */}

@@ -126,10 +126,10 @@ export function BloodRequest() {
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Users className="w-5 h-5 text-red-600" />
-            <span>Request Blood Donation</span>
+            <span>Request Blood Donation in Bangladesh</span>
           </CardTitle>
           <CardDescription>
-            Send a request notification to available blood donors in your area
+            Send a request notification to available blood donors in Bangladesh
           </CardDescription>
         </CardHeader>
         <CardContent>

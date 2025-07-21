@@ -86,7 +86,7 @@ export function DonorSearch() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Find Blood Donors</CardTitle>
+          <CardTitle>Find Blood Donors in Bangladesh</CardTitle>
           <CardDescription>
             Search for available blood donors in your area
           </CardDescription>
@@ -117,7 +117,7 @@ export function DonorSearch() {
                 <Input
                   id="city"
                   type="text"
-                  placeholder="Enter city"
+                  placeholder="e.g., Dhaka, Chittagong, Sylhet"
                   value={filters.city}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('city', e.target.value)}
                 />
@@ -128,7 +128,7 @@ export function DonorSearch() {
                 <Input
                   id="state"
                   type="text"
-                  placeholder="Enter state"
+                  placeholder="e.g., Dhaka Division, Chittagong Division"
                   value={filters.state}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('state', e.target.value)}
                 />
@@ -139,7 +139,7 @@ export function DonorSearch() {
                 <Input
                   id="area"
                   type="text"
-                  placeholder="Enter area/locality"
+                  placeholder="e.g., Dhanmondi, Gulshan, Uttara"
                   value={filters.area}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('area', e.target.value)}
                 />

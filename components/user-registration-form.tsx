@@ -108,7 +108,7 @@ export function UserRegistrationForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>Complete Your Registration</CardTitle>
+        <CardTitle>Join Blood for Bangladesh</CardTitle>
         <CardDescription>
           Provide your details to become a blood donor
         </CardDescription>
@@ -154,7 +154,7 @@ export function UserRegistrationForm() {
             <Input
               id="area"
               type="text"
-              placeholder="e.g., Dhanmondi, Downtown"
+              placeholder="e.g., Dhanmondi, Gulshan, Uttara, Wari"
               value={formData.area}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('area', e.target.value)}
               required
@@ -166,7 +166,7 @@ export function UserRegistrationForm() {
             <Input
               id="city"
               type="text"
-              placeholder="e.g., Dhaka, New York"
+              placeholder="e.g., Dhaka, Chittagong, Sylhet, Rajshahi"
               value={formData.city}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('city', e.target.value)}
               required
@@ -178,7 +178,7 @@ export function UserRegistrationForm() {
             <Input
               id="state"
               type="text"
-              placeholder="e.g., Dhaka Division, California"
+              placeholder="e.g., Dhaka Division, Chittagong Division, Sylhet Division"
               value={formData.state}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('state', e.target.value)}
               required
