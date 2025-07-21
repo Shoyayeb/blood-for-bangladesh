@@ -1,7 +1,6 @@
 import { verifyFirebaseToken } from '@/lib/firebase-admin';
 import { prisma } from '@/lib/prisma';
 import { BLOOD_COMPATIBILITY, DonorSearchSchema } from '@/lib/types';
-import { isUserAvailable } from '@/lib/utils-donation';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
