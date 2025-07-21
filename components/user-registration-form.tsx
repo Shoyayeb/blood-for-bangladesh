@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/lib/auth-context';
+import { dhaka_zones } from '@/lib/hospitals';
+import { isPushNotificationSupported, requestNotificationPermission } from '@/lib/push-notifications';
 import {
     BLOOD_GROUP_DISPLAY,
     BloodGroup,
@@ -14,20 +16,22 @@ import {
     ProfileVisibility,
     UserRegistrationSchema
 } from '@/lib/types';
+import { Bell, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function UserRegistrationForm() {
   const { firebaseUser, refreshUser } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
   const [formData, setFormData] = useState({
     name: '',
     bloodGroup: '' as BloodGroup | '',
-    area: '',
-    city: '',
-    state: '',
+    area: '', // This will now be the zone
+    city: 'Dhaka', // Fixed to Dhaka
+    state: 'Dhaka', // Fixed to Dhaka Division
     contactVisibility: 'RESTRICTED' as ContactVisibility,
     profileVisibility: 'PUBLIC' as ProfileVisibility,
   });
@@ -35,6 +39,13 @@ export function UserRegistrationForm() {
   const updateField = (field: keyof typeof formData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
+
+  // Check initial notification permission
+  useEffect(() => {
+    if (isPushNotificationSupported()) {
+      setNotificationPermission(Notification.permission);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,9 +80,33 @@ export function UserRegistrationForm() {
       const data = await response.json();
 
       if (response.ok) {
-        // Registration successful, refresh user data and redirect to profile
+        // Registration successful
         await refreshUser();
-        router.push('/profile');
+        
+        // Setup push notifications after successful registration
+        if (isPushNotificationSupported() && notificationPermission === 'granted') {
+          try {
+            const subscription = await requestNotificationPermission();
+            if (subscription) {
+              // Save push subscription to server
+              const token = await firebaseUser.getIdToken();
+              await fetch('/api/push/subscribe', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(subscription),
+              });
+              console.log('Push notifications setup completed');
+            }
+          } catch (pushError) {
+            console.error('Error setting up push notifications:', pushError);
+            // Don't fail registration if push setup fails
+          }
+        }
+        
+        router.push('/dashboard');
       } else {
         setError(data.error || 'Registration failed');
       }
@@ -150,39 +185,40 @@ export function UserRegistrationForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="area">Area/Locality *</Label>
-            <Input
+            <Label htmlFor="area">Zone *</Label>
+            <select
               id="area"
-              type="text"
-              placeholder="e.g., Dhanmondi, Gulshan, Uttara, Wari"
+              title="Select your zone in Dhaka"
               value={formData.area}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('area', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateField('area', e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               required
-            />
+            >
+              <option value="">Select Zone</option>
+              {dhaka_zones.map((zone) => (
+                <option key={zone} value={zone}>
+                  {zone}
+                </option>
+              ))}
+            </select>
+            <p className="text-xs text-gray-500">
+              Select the zone in Dhaka where you live
+            </p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="city">City *</Label>
+            <Label htmlFor="city">Division *</Label>
             <Input
               id="city"
               type="text"
-              placeholder="e.g., Dhaka, Chittagong, Sylhet, Rajshahi"
-              value={formData.city}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('city', e.target.value)}
-              required
+              value="Dhaka"
+              disabled
+              className="bg-gray-50 cursor-not-allowed"
+              title="Currently only available in Dhaka"
             />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="state">State/Division *</Label>
-            <Input
-              id="state"
-              type="text"
-              placeholder="e.g., Dhaka Division, Chittagong Division, Sylhet Division"
-              value={formData.state}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('state', e.target.value)}
-              required
-            />
+            <p className="text-xs text-gray-500">
+              Currently available only in Dhaka Division
+            </p>
           </div>
 
           {/* Privacy Controls Section */}
@@ -229,6 +265,58 @@ export function UserRegistrationForm() {
               </p>
             </div>
           </div>
+
+          {/* Notification Permissions Section */}
+          {isPushNotificationSupported() && (
+            <div className="space-y-4 border-t pt-4">
+              <h3 className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                <Bell className="h-4 w-4" />
+                Blood Request Notifications
+              </h3>
+              
+              <div className="bg-blue-50 p-3 rounded-md">
+                <div className="flex items-start gap-3">
+                  {notificationPermission === 'granted' ? (
+                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  ) : (
+                    <Bell className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                  )}
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-blue-900">
+                      {notificationPermission === 'granted' 
+                        ? 'Notifications Enabled' 
+                        : 'Enable Notifications'}
+                    </p>
+                    <p className="text-xs text-blue-700 mt-1">
+                      {notificationPermission === 'granted'
+                        ? 'You\'ll receive instant alerts when someone needs your blood type in your area.'
+                        : 'Get instant alerts when someone needs your blood type in your area. Click below to enable notifications.'}
+                    </p>
+                    
+                    {notificationPermission !== 'granted' && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="mt-2 bg-white border-blue-300 text-blue-700 hover:bg-blue-50"
+                        onClick={async () => {
+                          try {
+                            const permission = await Notification.requestPermission();
+                            setNotificationPermission(permission);
+                          } catch (error) {
+                            console.error('Error requesting notification permission:', error);
+                          }
+                        }}
+                      >
+                        <Bell className="h-3 w-3 mr-1" />
+                        Enable Notifications
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {error && (
             <div className="text-sm text-red-600 bg-red-50 p-3 rounded">

@@ -59,6 +59,7 @@ model BloodRequest {
   notifyAll       Boolean  @default(false)
   requesterCity   String
   requesterState  String
+  hospitalData    Json?    // Hospital information including name, zone, address
   status          RequestStatus @default(ACTIVE)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -75,6 +76,8 @@ model Notification {
   sentAt          DateTime @default(now())
   status          NotificationStatus @default(SENT)
   readAt          DateTime?
+  response        NotificationResponse?
+  respondedAt     DateTime?
   
   bloodRequest    BloodRequest @relation(fields: [bloodRequestId], references: [id], onDelete: Cascade)
   donor           User         @relation(fields: [donorId], references: [id], onDelete: Cascade)
@@ -123,4 +126,9 @@ enum NotificationStatus {
   DELIVERED // Notification has been delivered
   READ      // Notification has been read by donor
   RESPONDED // Donor has responded to the request
+}
+
+enum NotificationResponse {
+  ACCEPTED   // Donor accepted to donate
+  DECLINED   // Donor declined to donate
 }

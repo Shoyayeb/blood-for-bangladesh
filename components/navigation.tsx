@@ -33,6 +33,11 @@ export function Navigation() {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
+            <Link href="/requests" className="flex items-center space-x-1 text-gray-600 hover:text-red-600 transition-colors">
+              <Heart className="w-4 h-4" />
+              <span>Active Requests</span>
+            </Link>
+            
             <Link href="/search" className="flex items-center space-x-1 text-gray-600 hover:text-red-600 transition-colors">
               <Search className="w-4 h-4" />
               <span>Find Donors</span>

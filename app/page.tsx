@@ -21,9 +21,9 @@ export default function HomePage() {
                 Become a Donor
               </Button>
             </Link>
-            <Link href="/search">
+            <Link href="/requests">
               <Button size="lg" variant="outline" className="text-lg px-8 py-3">
-                Find Blood
+                View Active Requests
               </Button>
             </Link>
           </div>

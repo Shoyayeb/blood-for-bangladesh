@@ -1,12 +1,16 @@
 'use client';
 
+import { ActiveBloodRequests } from '@/components/active-blood-requests';
+import { NotificationCenter } from '@/components/notification-center';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/lib/auth-context';
 import { daysUntilAvailable, formatBloodGroup, isUserAvailable } from '@/lib/utils-donation';
 import { format } from 'date-fns';
+import { Bell, Heart, Search } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 export function UserDashboard() {
   const { user, logout, refreshUser } = useAuth();
@@ -271,6 +275,70 @@ export function UserDashboard() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* Notifications and Active Requests */}
+        <div className="mt-12">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Blood Requests & Notifications</h3>
+          
+          <Tabs defaultValue="notifications" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsTrigger value="notifications" className="flex items-center gap-2">
+                <Bell className="h-4 w-4" />
+                My Notifications
+              </TabsTrigger>
+              <TabsTrigger value="active-requests" className="flex items-center gap-2">
+                <Search className="h-4 w-4" />
+                Active Requests
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="notifications">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Bell className="h-5 w-5 text-red-500" />
+                    Blood Request Notifications
+                  </CardTitle>
+                  <p className="text-gray-600">
+                    Notifications about blood requests in your area. Respond to help save lives.
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <Suspense fallback={
+                    <div className="flex items-center justify-center py-8">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500"></div>
+                    </div>
+                  }>
+                    <NotificationCenter />
+                  </Suspense>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="active-requests">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Heart className="h-5 w-5 text-red-500" />
+                    Active Blood Requests
+                  </CardTitle>
+                  <p className="text-gray-600">
+                    Browse all active blood requests across Bangladesh. Find ways to help in your community.
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <Suspense fallback={
+                    <div className="flex items-center justify-center py-8">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500"></div>
+                    </div>
+                  }>
+                    <ActiveBloodRequests />
+                  </Suspense>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>
