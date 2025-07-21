@@ -23,7 +23,7 @@ if (!getApps().length) {
       console.log('Firebase Admin initialized with service account JSON file');
     } catch {
       console.log('Service account JSON file not found, trying environment variables...');
-      // Fallback to environment variables
+      // Fallback to environment variables (required for Vercel deployment)
       if (process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY) {
         firebaseConfig.credential = cert({
           projectId: process.env.FIREBASE_PROJECT_ID,
@@ -32,9 +32,10 @@ if (!getApps().length) {
         });
         console.log('Firebase Admin initialized with service account environment variables');
       } else {
+        console.warn('Warning: No Firebase service account credentials found.');
+        console.warn('For production deployment, make sure to set FIREBASE_CLIENT_EMAIL and FIREBASE_PRIVATE_KEY environment variables.');
         // For development, try to use Application Default Credentials
         console.log('Firebase Admin initialized with default credentials (development mode)');
-        console.warn('Warning: No service account credentials found. Some features may not work with live phone authentication.');
       }
     }
 
