@@ -94,8 +94,13 @@ export function PhoneAuthForm() {
       const result = await confirmation.confirm(otp);
       // User is signed in
       
-      // Check if user exists in our database
-      const response = await fetch(`/api/users/profile?phoneNumber=${result.user.phoneNumber}`);
+      // Check if user exists in our database using Firebase token
+      const token = await result.user.getIdToken();
+      const response = await fetch('/api/users/profile', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
       
       if (response.ok) {
         // User exists, redirect to dashboard

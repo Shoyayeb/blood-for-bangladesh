@@ -58,10 +58,9 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    const phoneNumber = verificationResult.phoneNumber;
-
+    // Look up user by Firebase UID (which should be our user ID)
     const user = await prisma.user.findUnique({
-      where: { phoneNumber },
+      where: { id: verificationResult.uid },
       include: {
         donations: {
           orderBy: { donatedAt: 'desc' },
@@ -82,6 +81,7 @@ export async function GET(request: NextRequest) {
       area: user.area,
       city: user.city,
       state: user.state,
+      zone: user.zone,
       isActive: user.isActive,
       lastDonation: user.lastDonation,
       availableFrom: user.availableFrom,
@@ -149,13 +149,12 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json(updatedUser);
     }
 
-    // If token verification succeeded, get user by phone number
-    const phoneNumber = verificationResult.phoneNumber;
+    // If token verification succeeded, get user by Firebase UID
     const { ...updateData } = body;
 
-    // Find user by phone number
+    // Find user by Firebase UID
     const user = await prisma.user.findUnique({
-      where: { phoneNumber },
+      where: { id: verificationResult.uid },
     });
 
     if (!user) {
@@ -166,7 +165,7 @@ export async function PUT(request: NextRequest) {
     const validatedData = UserUpdateSchema.parse(updateData);
 
     const updatedUser = await prisma.user.update({
-      where: { id: user.id },
+      where: { id: verificationResult.uid }, // Use Firebase UID directly
       data: validatedData,
       select: {
         id: true,
@@ -176,6 +175,7 @@ export async function PUT(request: NextRequest) {
         area: true,
         city: true,
         state: true,
+        zone: true, // Include zone field
         isActive: true,
         lastDonation: true,
         availableFrom: true,

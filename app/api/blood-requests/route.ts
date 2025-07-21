@@ -61,7 +61,11 @@ export async function POST(request: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      return NextResponse.json({ 
+        error: 'User profile not found. Please complete your registration first.',
+        code: 'USER_NOT_REGISTERED',
+        redirectTo: '/auth/register'
+      }, { status: 404 });
     }
 
     const now = new Date();

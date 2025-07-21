@@ -30,18 +30,41 @@ export async function POST(request: NextRequest) {
     });
 
     if (existingUser) {
-      return NextResponse.json({ error: 'User already exists' }, { status: 400 });
+      // Check if the existing user has the correct Firebase UID
+      if (existingUser.id === verificationResult.uid) {
+        // User exists with correct Firebase UID, return existing user data
+        return NextResponse.json({ 
+          id: existingUser.id,
+          phoneNumber: existingUser.phoneNumber,
+          name: existingUser.name,
+          bloodGroup: existingUser.bloodGroup,
+          area: existingUser.area,
+          city: existingUser.city,
+          state: existingUser.state,
+          zone: existingUser.zone,
+          isActive: existingUser.isActive,
+          contactVisibility: existingUser.contactVisibility,
+          profileVisibility: existingUser.profileVisibility,
+        });
+      } else {
+        // User exists but with wrong ID - this shouldn't happen in normal flow
+        return NextResponse.json({ 
+          error: 'User registration conflict. Please contact support.' 
+        }, { status: 409 });
+      }
     }
 
     // Create new user
     const user = await prisma.user.create({
       data: {
+        id: verificationResult.uid, // Use Firebase UID as user ID
         phoneNumber: validatedData.phoneNumber,
         name: validatedData.name,
         bloodGroup: validatedData.bloodGroup,
         area: validatedData.area,
         city: validatedData.city,
         state: validatedData.state,
+        zone: validatedData.zone, // Include zone field
         isActive: true,
         contactVisibility: validatedData.contactVisibility || 'RESTRICTED',
         profileVisibility: validatedData.profileVisibility || 'PUBLIC',
@@ -56,6 +79,7 @@ export async function POST(request: NextRequest) {
       area: user.area,
       city: user.city,
       state: user.state,
+      zone: user.zone,
       isActive: user.isActive,
       contactVisibility: user.contactVisibility,
       profileVisibility: user.profileVisibility,

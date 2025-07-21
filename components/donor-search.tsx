@@ -41,10 +41,12 @@ export function DonorSearch() {
   const [donors, setDonors] = useState<Donor[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
     try {
       const searchParams = new URLSearchParams();
@@ -72,10 +74,10 @@ export function DonorSearch() {
         setDonors(data.users || []);
         setSearched(true);
       } else {
-        console.error('Search failed:', data.error);
+        setError(data.error || 'Search failed. Please try again.');
       }
     } catch (error) {
-      console.error('Search error:', error);
+      setError('Network error. Please check your connection and try again.');
     } finally {
       setLoading(false);
     }
@@ -151,6 +153,13 @@ export function DonorSearch() {
             <Button type="submit" disabled={loading} className="w-full">
               {loading ? 'Searching in Dhaka...' : 'Search Donors in Dhaka'}
             </Button>
+
+            {/* Error Display */}
+            {error && (
+              <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            )}
           </form>
         </CardContent>
       </Card>

@@ -8,13 +8,13 @@ import { useAuth } from '@/lib/auth-context';
 import { dhaka_zones } from '@/lib/hospitals';
 import { isPushNotificationSupported, requestNotificationPermission } from '@/lib/push-notifications';
 import {
-    BLOOD_GROUP_DISPLAY,
-    BloodGroup,
-    CONTACT_VISIBILITY_DISPLAY,
-    ContactVisibility,
-    PROFILE_VISIBILITY_DISPLAY,
-    ProfileVisibility,
-    UserRegistrationSchema
+  BLOOD_GROUP_DISPLAY,
+  BloodGroup,
+  CONTACT_VISIBILITY_DISPLAY,
+  ContactVisibility,
+  PROFILE_VISIBILITY_DISPLAY,
+  ProfileVisibility,
+  UserRegistrationSchema
 } from '@/lib/types';
 import { Bell, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -31,7 +31,7 @@ export function UserRegistrationForm() {
     bloodGroup: '' as BloodGroup | '',
     area: '', // This will now be the zone
     city: 'Dhaka', // Fixed to Dhaka
-    state: 'Dhaka', // Fixed to Dhaka Division
+    state: 'Dhaka Division', // Fixed to Dhaka Division for consistency
     contactVisibility: 'RESTRICTED' as ContactVisibility,
     profileVisibility: 'PUBLIC' as ProfileVisibility,
   });
@@ -62,6 +62,8 @@ export function UserRegistrationForm() {
       const validationData = {
         ...formData,
         phoneNumber: firebaseUser.phoneNumber || '',
+        zone: formData.area, // Map area (which contains zone) to zone field
+        area: `${formData.area}, Dhaka`, // Create proper area description
       };
 
       const validatedData = UserRegistrationSchema.parse(validationData);
