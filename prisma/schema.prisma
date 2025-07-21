@@ -43,6 +43,11 @@ model User {
   notifications   Notification[]
   bloodRequests   BloodRequest[]  // Blood requests created by this user
   
+  // Database indexes for performance optimization
+  @@index([bloodGroup, isActive, isDonationPaused])
+  @@index([city, state])
+  @@index([zone])
+  @@index([profileVisibility, isActive])
   @@map("users")
 }
 
@@ -81,6 +86,10 @@ model BloodRequest {
   user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   notifications   Notification[]
   
+  // Database indexes for performance optimization
+  @@index([status, createdAt])
+  @@index([bloodGroup, status])
+  @@index([urgency, status])
   @@map("blood_requests")
 }
 
@@ -97,6 +106,10 @@ model Notification {
   bloodRequest    BloodRequest @relation(fields: [bloodRequestId], references: [id], onDelete: Cascade)
   donor           User         @relation(fields: [donorId], references: [id], onDelete: Cascade)
   
+  // Database indexes for performance optimization
+  @@index([donorId, readAt])
+  @@index([bloodRequestId, status])
+  @@index([sentAt])
   @@map("notifications")
 }
 

@@ -98,10 +98,9 @@ export function UserRegistrationForm() {
                 },
                 body: JSON.stringify(subscription),
               });
-              console.log('Push notifications setup completed');
+              // Push notifications setup completed
             }
           } catch (pushError) {
-            console.error('Error setting up push notifications:', pushError);
             // Don't fail registration if push setup fails
           }
         }

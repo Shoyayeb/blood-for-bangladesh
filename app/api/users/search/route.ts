@@ -3,6 +3,18 @@ import { prisma } from '@/lib/prisma';
 import { BLOOD_COMPATIBILITY, DonorSearchSchema } from '@/lib/types';
 import { NextRequest, NextResponse } from 'next/server';
 
+// Simple in-memory cache for search results (5 minutes TTL)
+const searchCache = new Map();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+function getCacheKey(query: Record<string, unknown>, isAuthenticated: boolean, page: number, limit: number): string {
+  return JSON.stringify({ query, isAuthenticated, page, limit });
+}
+
+function isCacheValid(timestamp: number): boolean {
+  return Date.now() - timestamp < CACHE_TTL;
+}
+
 export async function GET(request: NextRequest) {
   try {
     // Check if user is authenticated
@@ -24,8 +36,21 @@ export async function GET(request: NextRequest) {
       zone: searchParams.get('zone') || undefined,
     };
 
+    // Pagination parameters
+    const page = Math.max(1, parseInt(searchParams.get('page') || '1'));
+    const limit = Math.min(50, Math.max(10, parseInt(searchParams.get('limit') || '20')));
+    const skip = (page - 1) * limit;
+
     // Validate query parameters
     const validatedQuery = DonorSearchSchema.parse(query);
+
+    // Check cache first
+    const cacheKey = getCacheKey(validatedQuery, isAuthenticated, page, limit);
+    const cachedResult = searchCache.get(cacheKey);
+    
+    if (cachedResult && isCacheValid(cachedResult.timestamp)) {
+      return NextResponse.json(cachedResult.data);
+    }
 
     // Build where clause
     const where: Record<string, unknown> = {
@@ -83,6 +108,9 @@ export async function GET(request: NextRequest) {
     // Only show users who are available to donate (not in donation cooldown)
     where.isDonationPaused = false;
 
+    // Get total count for pagination
+    const totalCount = await prisma.user.count({ where });
+
     const users = await prisma.user.findMany({
       where,
       select: {
@@ -105,7 +133,8 @@ export async function GET(request: NextRequest) {
         { availableFrom: 'asc' },
         { createdAt: 'desc' },
       ],
-      take: 50, // Limit results
+      skip,
+      take: limit,
     });
 
     // Filter users and apply contact visibility (no need for additional availability filter since we already filtered in query)
@@ -139,10 +168,30 @@ export async function GET(request: NextRequest) {
         return userResponse;
       });
 
-    return NextResponse.json({
+    const result = {
       users: availableUsers,
       total: availableUsers.length,
+      totalCount,
+      page,
+      limit,
+      totalPages: Math.ceil(totalCount / limit),
+      hasNextPage: page < Math.ceil(totalCount / limit),
+      hasPreviousPage: page > 1,
+    };
+
+    // Cache the result
+    searchCache.set(cacheKey, {
+      data: result,
+      timestamp: Date.now()
     });
+
+    // Clean up old cache entries (simple LRU)
+    if (searchCache.size > 100) {
+      const oldestKey = searchCache.keys().next().value;
+      searchCache.delete(oldestKey);
+    }
+
+    return NextResponse.json(result);
 
   } catch (error) {
     console.error('Search error:', error);

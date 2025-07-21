@@ -22,13 +22,12 @@ export function PhoneAuthForm() {
     if (!(window as unknown as { recaptchaVerifier?: RecaptchaVerifier }).recaptchaVerifier) {
       (window as unknown as { recaptchaVerifier: RecaptchaVerifier }).recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
         size: 'invisible',
-        callback: () => {
-          console.log('reCAPTCHA solved');
+        onVerify: () => {
+          // reCAPTCHA verified
         },
-        'expired-callback': () => {
-          console.log('reCAPTCHA expired');
-          setError('reCAPTCHA expired. Please try again.');
-        }
+        onExpire: () => {
+          // reCAPTCHA expired
+        },
       });
     }
   };
@@ -50,7 +49,6 @@ export function PhoneAuthForm() {
         formattedPhone = '+1' + phoneNumber.replace(/\D/g, '');
       }
       
-      console.log('Attempting to send OTP to:', formattedPhone);
       const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
       setConfirmation(confirmation);
       setStep('otp');
@@ -95,7 +93,6 @@ export function PhoneAuthForm() {
     try {
       const result = await confirmation.confirm(otp);
       // User is signed in
-      console.log('User signed in:', result.user);
       
       // Check if user exists in our database
       const response = await fetch(`/api/users/profile?phoneNumber=${result.user.phoneNumber}`);
