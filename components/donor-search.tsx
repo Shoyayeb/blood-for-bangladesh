@@ -5,9 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/lib/auth-context';
+import { dhaka_zones } from '@/lib/hospitals';
 import { BLOOD_GROUP_DISPLAY, BloodGroup } from '@/lib/types';
 import { formatBloodGroup } from '@/lib/utils-donation';
-import { Phone, Shield } from 'lucide-react';
+import { MapPin, Phone, Shield } from 'lucide-react';
 import { useState } from 'react';
 
 interface Donor {
@@ -18,6 +19,7 @@ interface Donor {
   area: string;
   city: string;
   state: string;
+  zone?: string; // Dhaka zone
   availableFrom: string | null;
   contactVisible: boolean; // Indicates if contact info is visible
   createdAt: string;
@@ -25,8 +27,7 @@ interface Donor {
 
 interface SearchFilters {
   bloodGroup: BloodGroup | '';
-  city: string;
-  state: string;
+  zone: string;
   area: string;
 }
 
@@ -34,8 +35,7 @@ export function DonorSearch() {
   const { firebaseUser } = useAuth();
   const [filters, setFilters] = useState<SearchFilters>({
     bloodGroup: '',
-    city: '',
-    state: '',
+    zone: '',
     area: '',
   });
   const [donors, setDonors] = useState<Donor[]>([]);
@@ -49,9 +49,12 @@ export function DonorSearch() {
     try {
       const searchParams = new URLSearchParams();
       if (filters.bloodGroup) searchParams.append('bloodGroup', filters.bloodGroup);
-      if (filters.city) searchParams.append('city', filters.city);
-      if (filters.state) searchParams.append('state', filters.state);
+      if (filters.zone) searchParams.append('zone', filters.zone);
       if (filters.area) searchParams.append('area', filters.area);
+      
+      // Always search within Dhaka
+      searchParams.append('city', 'Dhaka');
+      searchParams.append('state', 'Dhaka Division');
 
       // Prepare headers with authentication if user is logged in
       const headers: Record<string, string> = {};
@@ -86,9 +89,12 @@ export function DonorSearch() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Find Blood Donors in Bangladesh</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-red-600" />
+            Find Blood Donors in Dhaka
+          </CardTitle>
           <CardDescription>
-            Search for available blood donors in your area
+            Search for available blood donors in different zones of Dhaka city
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -113,33 +119,29 @@ export function DonorSearch() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="city">City</Label>
-                <Input
-                  id="city"
-                  type="text"
-                  placeholder="e.g., Dhaka, Chittagong, Sylhet"
-                  value={filters.city}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('city', e.target.value)}
-                />
+                <Label htmlFor="zone">Dhaka Zone</Label>
+                <select
+                  id="zone"
+                  title="Select zone in Dhaka"
+                  value={filters.zone}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFilter('zone', e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded-md"
+                >
+                  <option value="">All Zones in Dhaka</option>
+                  {dhaka_zones.map((zone) => (
+                    <option key={zone} value={zone}>
+                      {zone}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="state">State</Label>
-                <Input
-                  id="state"
-                  type="text"
-                  placeholder="e.g., Dhaka Division, Chittagong Division"
-                  value={filters.state}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('state', e.target.value)}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="area">Area</Label>
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="area">Specific Area (Optional)</Label>
                 <Input
                   id="area"
                   type="text"
-                  placeholder="e.g., Dhanmondi, Gulshan, Uttara"
+                  placeholder="e.g., Dhanmondi Road 15, Gulshan Avenue, Uttara Sector 7"
                   value={filters.area}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('area', e.target.value)}
                 />
@@ -147,7 +149,7 @@ export function DonorSearch() {
             </div>
 
             <Button type="submit" disabled={loading} className="w-full">
-              {loading ? 'Searching...' : 'Search Donors'}
+              {loading ? 'Searching in Dhaka...' : 'Search Donors in Dhaka'}
             </Button>
           </form>
         </CardContent>
@@ -195,8 +197,20 @@ export function DonorSearch() {
                           <span className="bg-red-100 text-red-800 px-2 py-1 rounded font-medium">
                             {formatBloodGroup(donor.bloodGroup)}
                           </span>
-                          <span>{donor.area}, {donor.city}</span>
-                          <span>{donor.state}</span>
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            {donor.area && `${donor.area}, `}{donor.city}
+                          </span>
+                          {donor.zone && (
+                            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                              {donor.zone}
+                            </span>
+                          )}
+                          {!donor.zone && donor.city === 'Dhaka' && (
+                            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                              Dhaka
+                            </span>
+                          )}
                         </div>
                         
                         {/* Contact Information with Privacy Controls */}

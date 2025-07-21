@@ -12,6 +12,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 interface BloodRequest {
   id: string;
+  userId: string;
   requesterName: string;
   requesterPhone: string;
   bloodGroup: string;
@@ -28,6 +29,8 @@ interface BloodRequest {
   };
   createdAt: string;
   status: string;
+  completedAt?: string;
+  completedBy?: string;
 }
 
 const urgencyColors = {
@@ -47,11 +50,12 @@ const urgencyIcons = {
 export default function RequestDetailsPage() {
   const params = useParams();
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, firebaseUser } = useAuth();
   const [request, setRequest] = useState<BloodRequest | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [responding, setResponding] = useState(false);
+  const [completing, setCompleting] = useState(false);
 
   const requestId = params.id as string;
 
@@ -124,6 +128,48 @@ export default function RequestDetailsPage() {
       alert('Failed to respond to request');
     } finally {
       setResponding(false);
+    }
+  };
+
+  const handleCompleteRequest = async (donorId?: string, notes?: string) => {
+    if (!firebaseUser || !request) {
+      return;
+    }
+
+    const confirmed = window.confirm(
+      'Are you sure you want to mark this blood request as completed? This action cannot be undone.'
+    );
+
+    if (!confirmed) return;
+
+    setCompleting(true);
+    try {
+      const token = await firebaseUser.getIdToken();
+      const res = await fetch(`/api/blood-requests/${requestId}/complete`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          donorId,
+          notes,
+        }),
+      });
+
+      if (res.ok) {
+        alert('Blood request marked as completed successfully!');
+        // Refresh the request details
+        await fetchRequestDetails();
+      } else {
+        const data = await res.json();
+        alert(data.error || 'Failed to complete request');
+      }
+    } catch (err) {
+      console.error('Error completing request:', err);
+      alert('Failed to complete request');
+    } finally {
+      setCompleting(false);
     }
   };
 
@@ -355,6 +401,64 @@ export default function RequestDetailsPage() {
               )}
             </CardContent>
           </Card>
+
+          {/* Request Completion - Only visible to requester */}
+          {user && firebaseUser && request.userId === firebaseUser.uid && request.status !== 'COMPLETED' && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  ✅ Mark Request as Completed
+                </CardTitle>
+                <CardDescription>
+                  Mark this request as completed when you have received the blood donation
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <p className="text-sm text-green-800 mb-3">
+                    <strong>Once you mark this request as completed:</strong>
+                  </p>
+                  <ul className="text-sm text-green-700 space-y-1">
+                    <li>• The request will be removed from active searches</li>
+                    <li>• No more donors will be notified</li>
+                    <li>• This action cannot be undone</li>
+                  </ul>
+                </div>
+                
+                <Button 
+                  onClick={() => handleCompleteRequest()}
+                  disabled={completing}
+                  className="w-full"
+                  variant="default"
+                >
+                  {completing ? 'Marking as Completed...' : 'Mark Request as Completed'}
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Request Status - If already completed */}
+          {request.status === 'COMPLETED' && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-green-600">
+                  ✅ Request Completed
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <p className="text-green-800">
+                    This blood request has been marked as completed.
+                  </p>
+                  {request.completedAt && (
+                    <p className="text-sm text-green-600 mt-2">
+                      Completed on: {new Date(request.completedAt).toLocaleDateString()}
+                    </p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
     </div>

@@ -19,10 +19,10 @@ export async function GET(
     const bloodRequest = await prisma.bloodRequest.findUnique({
       where: {
         id: requestId,
-        status: 'ACTIVE' // Only show active requests
       },
       select: {
         id: true,
+        userId: true,
         requesterName: true,
         requesterPhone: true,
         bloodGroup: true,
@@ -34,12 +34,14 @@ export async function GET(
         hospitalData: true,
         createdAt: true,
         status: true,
+        completedAt: true,
+        completedBy: true,
       },
     });
 
     if (!bloodRequest) {
       return NextResponse.json(
-        { message: 'Blood request not found or no longer active' },
+        { message: 'Blood request not found' },
         { status: 404 }
       );
     }

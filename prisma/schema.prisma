@@ -18,6 +18,7 @@ model User {
   area            String
   city            String
   state           String
+  zone            String?  // Dhaka zone (optional for non-Dhaka users)
   isActive        Boolean  @default(true)
   lastDonation    DateTime?
   availableFrom   DateTime? // Auto-calculated based on last donation
@@ -26,11 +27,21 @@ model User {
   contactVisibility ContactVisibility @default(RESTRICTED) // Phone number visibility
   profileVisibility ProfileVisibility @default(PUBLIC)     // Profile visibility
   
+  // Rate Limiting
+  lastRequestDate   DateTime?  // Last time user created a blood request
+  requestCount      Int        @default(0)  // Number of requests created in current hour
+  requestResetAt    DateTime?  // When the request count resets
+  
+  // Donation Tracking
+  lastDonationDate  DateTime?  // Last time user donated blood
+  isDonationPaused  Boolean    @default(false)  // Whether user is in 3-month donation cooldown
+  
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   
   donations       Donation[]
   notifications   Notification[]
+  bloodRequests   BloodRequest[]  // Blood requests created by this user
   
   @@map("users")
 }
@@ -49,6 +60,7 @@ model Donation {
 
 model BloodRequest {
   id              String   @id @default(cuid())
+  userId          String   // User who created this request
   requesterName   String
   requesterPhone  String
   bloodGroup      BloodGroup
@@ -61,9 +73,12 @@ model BloodRequest {
   requesterState  String
   hospitalData    Json?    // Hospital information including name, zone, address
   status          RequestStatus @default(ACTIVE)
+  completedAt     DateTime? // When requester marked as completed
+  completedBy     String?   // ID of donor who fulfilled the request
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   notifications   Notification[]
   
   @@map("blood_requests")
@@ -117,6 +132,7 @@ enum RequestUrgency {
 enum RequestStatus {
   ACTIVE    // Request is active and seeking donors
   FULFILLED // Request has been fulfilled
+  COMPLETED // Request marked as completed by requester
   CANCELLED // Request has been cancelled
   EXPIRED   // Request has expired
 }

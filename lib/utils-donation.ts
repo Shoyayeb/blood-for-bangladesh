@@ -63,3 +63,38 @@ export function daysUntilAvailable(availableFrom: Date | null): number {
   const diffTime = availableFrom.getTime() - now.getTime();
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 }
+
+/**
+ * Check if a user is currently available to donate based on new schema
+ * @param lastDonationDate - Date of last donation
+ * @param isDonationPaused - Whether user is in cooldown
+ * @returns true if user can donate now
+ */
+export function isUserAvailableNew(lastDonationDate: Date | null, isDonationPaused: boolean): boolean {
+  if (!isDonationPaused) return true;
+  
+  if (!lastDonationDate) return true;
+  
+  const now = new Date();
+  const threeMonthsAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000); // 90 days
+  
+  return lastDonationDate <= threeMonthsAgo;
+}
+
+/**
+ * Calculate days until user can donate again based on new schema
+ * @param lastDonationDate - Date of last donation
+ * @param isDonationPaused - Whether user is in cooldown
+ * @returns Number of days, or 0 if available now
+ */
+export function daysUntilAvailableNew(lastDonationDate: Date | null, isDonationPaused: boolean): number {
+  if (!isDonationPaused || !lastDonationDate) return 0;
+  
+  const now = new Date();
+  const availableDate = new Date(lastDonationDate.getTime() + 90 * 24 * 60 * 60 * 1000); // Add 90 days
+  
+  if (availableDate <= now) return 0;
+  
+  const diffTime = availableDate.getTime() - now.getTime();
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+}

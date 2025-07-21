@@ -38,6 +38,7 @@ export const UserRegistrationSchema = z.object({
   area: z.string().min(2, 'Area is required'),
   city: z.string().min(2, 'City is required'),
   state: z.string().min(2, 'State is required'),
+  zone: z.string().optional(), // Optional Dhaka zone
   contactVisibility: ContactVisibilityEnum.default('RESTRICTED'),
   profileVisibility: ProfileVisibilityEnum.default('PUBLIC'),
 });
@@ -50,6 +51,7 @@ export const DonorSearchSchema = z.object({
   city: z.string().optional(),
   state: z.string().optional(),
   area: z.string().optional(),
+  zone: z.string().optional(), // For Dhaka zone filtering
 });
 
 export type DonorSearch = z.infer<typeof DonorSearchSchema>;

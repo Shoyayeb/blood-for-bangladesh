@@ -15,6 +15,8 @@ interface User {
   isActive: boolean;
   lastDonation?: Date;
   availableFrom?: Date;
+  lastDonationDate?: Date;
+  isDonationPaused?: boolean;
   contactVisibility?: string;
   profileVisibility?: string;
   createdAt?: Date;

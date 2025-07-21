@@ -1,5 +1,5 @@
+import { verifyFirebaseToken } from '@/lib/firebase-admin';
 import { prisma } from '@/lib/prisma';
-import { calculateAvailableFrom } from '@/lib/utils-donation';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
@@ -10,18 +10,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // TODO: Verify Firebase token and get user ID
-    // For now, we'll get user ID from request body
-    const body = await request.json();
-    const { userId, location, notes } = body;
-
-    if (!userId) {
-      return NextResponse.json({ error: 'User ID required' }, { status: 400 });
+    const token = authHeader.split('Bearer ')[1];
+    
+    // Verify Firebase token
+    const verificationResult = await verifyFirebaseToken(token);
+    
+    if (!verificationResult.success) {
+      return NextResponse.json({ error: 'Invalid authentication token' }, { status: 401 });
     }
+
+    const body = await request.json();
+    const { location, notes } = body;
 
     // Get user to verify they exist and are active
     const user = await prisma.user.findUnique({
-      where: { id: userId },
+      where: { id: verificationResult.uid },
     });
 
     if (!user) {
@@ -33,8 +36,6 @@ export async function POST(request: NextRequest) {
     }
 
     const now = new Date();
-    const cooldownMonths = parseInt(process.env.DONATION_COOLDOWN_MONTHS || '3');
-    const availableFrom = calculateAvailableFrom(now, cooldownMonths);
 
     // Create donation record
     const donation = await prisma.donation.create({
@@ -46,24 +47,24 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Update user's last donation and availability
+    // Update user's donation status - start 3-month cooldown
     const updatedUser = await prisma.user.update({
       where: { id: user.id },
       data: {
-        lastDonation: now,
-        availableFrom: availableFrom,
+        lastDonationDate: now,
+        isDonationPaused: true, // Start 3-month cooldown
       },
       select: {
         id: true,
         name: true,
         bloodGroup: true,
-        lastDonation: true,
-        availableFrom: true,
+        lastDonationDate: true,
+        isDonationPaused: true,
       },
     });
 
     return NextResponse.json({
-      message: 'Donation recorded successfully',
+      message: 'Donation recorded successfully! You are now in a 3-month donation cooldown period.',
       donation: {
         id: donation.id,
         donatedAt: donation.donatedAt,

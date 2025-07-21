@@ -49,6 +49,57 @@ export async function POST(request: NextRequest) {
     // Validate request data
     const validatedData = BloodRequestSchema.parse(body);
 
+    // Check rate limiting - 3 requests per hour
+    const user = await prisma.user.findUnique({
+      where: { id: verificationResult.uid },
+      select: {
+        id: true,
+        lastRequestDate: true,
+        requestCount: true,
+        requestResetAt: true,
+      },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    const now = new Date();
+    const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+
+    // Reset request count if it's been more than an hour since last reset
+    let requestCount = user.requestCount;
+    let requestResetAt = user.requestResetAt;
+
+    if (!user.requestResetAt || user.requestResetAt <= oneHourAgo) {
+      requestCount = 0;
+      requestResetAt = now;
+    }
+
+    // Check if user has exceeded the limit
+    if (requestCount >= 3) {
+      const timeUntilReset = requestResetAt ? new Date(requestResetAt.getTime() + 60 * 60 * 1000) : now;
+      const minutesLeft = Math.ceil((timeUntilReset.getTime() - now.getTime()) / (1000 * 60));
+      
+      return NextResponse.json(
+        { 
+          error: 'Rate limit exceeded. You can create maximum 3 blood requests per hour.',
+          minutesUntilReset: minutesLeft 
+        },
+        { status: 429 }
+      );
+    }
+
+    // Update user's request tracking
+    await prisma.user.update({
+      where: { id: verificationResult.uid },
+      data: {
+        lastRequestDate: now,
+        requestCount: requestCount + 1,
+        requestResetAt: requestResetAt,
+      },
+    });
+
     // Get compatible blood groups for the request
     const compatibleBloodGroups = BLOOD_COMPATIBILITY[validatedData.bloodGroup];
 
@@ -58,11 +109,8 @@ export async function POST(request: NextRequest) {
       bloodGroup: {
         in: compatibleBloodGroups,
       },
-      // Only available donors (past cooldown period)
-      OR: [
-        { availableFrom: null },
-        { availableFrom: { lte: new Date() } },
-      ],
+      // Only available donors (not in donation cooldown)
+      isDonationPaused: false,
     };
 
     // Create additional filters for location if not notifying all
@@ -96,6 +144,7 @@ export async function POST(request: NextRequest) {
     // Create blood request record
     const bloodRequest = await prisma.bloodRequest.create({
       data: {
+        userId: verificationResult.uid!, // Add user ID
         requesterName: validatedData.requesterName,
         requesterPhone: validatedData.requesterPhone,
         bloodGroup: validatedData.bloodGroup,

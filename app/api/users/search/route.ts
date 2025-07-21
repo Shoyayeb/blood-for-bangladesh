@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
       city: searchParams.get('city') || undefined,
       state: searchParams.get('state') || undefined,
       area: searchParams.get('area') || undefined,
+      zone: searchParams.get('zone') || undefined,
     };
 
     // Validate query parameters
@@ -73,11 +74,15 @@ export async function GET(request: NextRequest) {
       };
     }
 
-    // Only show users who are available to donate (past their cooldown period)
-    where.OR = [
-      { availableFrom: null },
-      { availableFrom: { lte: new Date() } },
-    ];
+    if (validatedQuery.zone) {
+      where.zone = {
+        contains: validatedQuery.zone,
+        mode: 'insensitive',
+      };
+    }
+
+    // Only show users who are available to donate (not in donation cooldown)
+    where.isDonationPaused = false;
 
     const users = await prisma.user.findMany({
       where,
@@ -89,7 +94,10 @@ export async function GET(request: NextRequest) {
         area: true,
         city: true,
         state: true,
-        availableFrom: true,
+        zone: true, // Include zone information
+        isDonationPaused: true, // Include donation status
+        lastDonationDate: true, // Include last donation date
+        availableFrom: true, // Keep for backward compatibility
         contactVisibility: true,
         profileVisibility: true,
         createdAt: true,
@@ -101,10 +109,8 @@ export async function GET(request: NextRequest) {
       take: 50, // Limit results
     });
 
-    // Filter out users who are still in cooldown period and apply contact visibility
-    const availableUsers = users
-      .filter((user) => isUserAvailable(user.availableFrom))
-      .map((user) => {
+    // Filter users and apply contact visibility (no need for additional availability filter since we already filtered in query)
+    const availableUsers = users.map((user) => {
         // Determine if contact info should be shown based on privacy settings
         let showContact = false;
         
@@ -124,6 +130,7 @@ export async function GET(request: NextRequest) {
           area: user.area,
           city: user.city,
           state: user.state,
+          zone: user.zone,
           availableFrom: user.availableFrom,
           createdAt: user.createdAt,
           phoneNumber: showContact ? user.phoneNumber : undefined,

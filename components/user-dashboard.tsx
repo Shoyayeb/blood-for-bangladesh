@@ -6,14 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/lib/auth-context';
-import { daysUntilAvailable, formatBloodGroup, isUserAvailable } from '@/lib/utils-donation';
+import { daysUntilAvailableNew, formatBloodGroup, isUserAvailableNew } from '@/lib/utils-donation';
 import { format } from 'date-fns';
 import { Bell, Heart, Search } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense, useState } from 'react';
 
 export function UserDashboard() {
-  const { user, logout, refreshUser } = useAuth();
+  const { user, firebaseUser, logout, refreshUser } = useAuth();
   const [donating, setDonating] = useState(false);
   const [donationNotes, setDonationNotes] = useState('');
 
@@ -32,19 +32,32 @@ export function UserDashboard() {
     );
   }
 
-  const canDonate = isUserAvailable(user.availableFrom ? new Date(user.availableFrom) : null);
-  const daysLeft = user.availableFrom ? daysUntilAvailable(new Date(user.availableFrom)) : 0;
+  const canDonate = isUserAvailableNew(
+    user.lastDonationDate ? new Date(user.lastDonationDate) : null, 
+    user.isDonationPaused || false
+  );
+  const daysLeft = daysUntilAvailableNew(
+    user.lastDonationDate ? new Date(user.lastDonationDate) : null,
+    user.isDonationPaused || false
+  );
 
   const handleMarkDonation = async () => {
+    if (!firebaseUser) {
+      alert('Please login to record a donation');
+      return;
+    }
+
     setDonating(true);
     try {
+      const token = await firebaseUser.getIdToken();
       const response = await fetch('/api/users/donate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-          userId: user.id,
+          location: donationNotes || null,
           notes: donationNotes || null,
         }),
       });
