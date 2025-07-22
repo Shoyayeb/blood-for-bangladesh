@@ -1,6 +1,6 @@
 # 🩸 Blood for Bangladesh
 
-A **life-saving platform** connecting blood donors across Bangladesh. Find available blood donors in real-time from Dhaka to Chittagong, respecting privacy and ensuring donor health through smart cooldown periods.
+A **life-saving platform** connecting blood donors across Bangladesh. Find available blood donors in real-time from Dhaka, respecting privacy and ensuring donor health through smart cooldown periods.
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![Firebase](https://img.shields.io/badge/Firebase-Auth-orange)
@@ -343,14 +343,6 @@ npx tsc --noEmit
 # Solution: Check Firebase Console → Authentication → Settings
 # Ensure your domain is in authorized domains list
 ```
-
-### Getting Help
-
-1. **Check Issues**: Search existing GitHub issues
-2. **Documentation**: Review Firebase and Prisma docs
-3. **Community**: Join our Discord/Slack for real-time help
-4. **Create Issue**: If you find a bug, create a detailed issue
-
 ---
 
 ## 📋 Roadmap
@@ -367,11 +359,11 @@ npx tsc --noEmit
 ### Upcoming Features 🚧
 - [ ] Email notifications for blood requests
 - [ ] SMS integration for urgent requests
-- [ ] Geolocation-based nearest donor search
+- [x] Geolocation-based nearest donor search
 - [ ] Blood bank integration
 - [ ] Appointment scheduling system
 - [ ] Multi-language support
-- [ ] Progressive Web App (PWA)
+- [x] Progressive Web App (PWA)
 - [ ] Push notifications
 - [ ] Analytics dashboard for blood banks
 
@@ -402,13 +394,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Email**: support@blooddonorapp.com
+- **Email**: contact@soyayeb.com
 - **GitHub Issues**: [Create an issue](https://github.com/yourusername/blood-donation/issues)
-- **Discord**: [Join our community](#)
-- **Documentation**: [Full documentation](#)
-
 ---
-
-**⚡ Ready to save lives? Let's build something amazing together!**
-
-*Every contribution, no matter how small, helps save lives. Thank you for being part of this mission.* 🩸❤️
