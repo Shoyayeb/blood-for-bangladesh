@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "appName": "Blood for Bangladesh",
+    "shortName": "Blood BD",
+    "requests": "Requests",
+    "findDonors": "Find Donors",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "home": {
+    "title": "Blood for Bangladesh",
+    "subtitle": "Connect with blood donors across Bangladesh. Help save lives by finding and donating blood in communities from Dhaka to Chittagong, Sylhet to Rajshahi.",
+    "becomeDonor": "Become a Donor",
+    "viewRequests": "View Active Requests"
+  }
+}
